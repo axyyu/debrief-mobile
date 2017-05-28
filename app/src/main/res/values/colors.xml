@@ -4,5 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="day">#bffdf5</color>
+    <color name="gradient_start">#00C4D5</color>
+    <color name="gradient_end">#D1D1D1</color>
+    <color name="text_color">#ffffff</color>
+
+    <color name="day">#8cffffff</color>
+    <color name="tag_color">#0076FF</color>
 </resources>

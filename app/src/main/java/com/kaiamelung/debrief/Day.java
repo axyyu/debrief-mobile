@@ -11,4 +11,20 @@ public class Day {
         mDate = d;
         mArticles = a;
     }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
+    }
+
+    public Article[] getArticle() {
+        return mArticles;
+    }
+
+    public void setArticle(Article[] article) {
+        mArticles = article;
+    }
 }
