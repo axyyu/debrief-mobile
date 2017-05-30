@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class FeedActivity extends AppCompatActivity {
 
-    private ArrayList<Day> days;
-    private RecyclerView mDays;
-    private DayAdapter adapter;
+    private ArrayList<Day> tags;
+    private RecyclerView mTag;
+    private TagAdapter adapter;
 
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotifyMgr;
@@ -27,16 +27,18 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        // Lookup the recyclerview in activity layout
-        mDays = (RecyclerView) findViewById(R.id.day_list);
 
-        days = new ArrayList<Day>();
+
+        // Lookup the recyclerview in activity layout
+        mTag = (RecyclerView) findViewById(R.id.day_list);
+
+        tags = new ArrayList<Day>();
         // Create adapter passing in the sample user data
-        adapter = new DayAdapter(this, days);
+        adapter = new TagAdapter(this, tags);
 
         // Attach the adapter to the recyclerview to populate items
-        mDays.setAdapter(adapter);
+        mTag.setAdapter(adapter);
         // Set layout manager to position the items
-        mDays.setLayoutManager(new LinearLayoutManager(this));
+        mTag.setLayoutManager(new LinearLayoutManager(this));
     }
 }

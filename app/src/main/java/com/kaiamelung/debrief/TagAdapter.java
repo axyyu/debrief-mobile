@@ -20,8 +20,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class DayAdapter extends
-        RecyclerView.Adapter<DayAdapter.ViewHolder> {
+public class TagAdapter extends
+        RecyclerView.Adapter<TagAdapter.ViewHolder> {
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -52,7 +52,7 @@ public class DayAdapter extends
     private Context mContext;
 
     // Pass in the contact array into the constructor
-    public DayAdapter(Context context, List<Day> contacts) {
+    public TagAdapter(Context context, List<Day> contacts) {
         mDays = contacts;
         mContext = context;
     }
@@ -64,7 +64,7 @@ public class DayAdapter extends
 
     // Usually involves inflating a layout from XML and returning the holder
     @Override
-    public DayAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TagAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -78,21 +78,12 @@ public class DayAdapter extends
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(DayAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(TagAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
         Day day = mDays.get(position);
 
         // Set item views based on your views and data model
         TextView date = viewHolder.mDate;
-        RecyclerView mArticles = viewHolder.mArticleView;
-        ArticleAdapter adapter = viewHolder.mArticleAdapter;
-
-        date.setText(day.getDate());
-        adapter = new ArticleAdapter(this, articles);
-        // Attach the adapter to the recyclerview to populate items
-        mArticles.setAdapter(adapter);
-        // Set layout manager to position the items
-        mArticles.setLayoutManager(new LinearLayoutManager(this));
     }
 
     // Returns the total count of items in the list

@@ -6,19 +6,15 @@ package com.kaiamelung.debrief;
 
 public class Article {
     private String mHeadline;
-    private String mAuthors;
     private String mShort;
     private String mLong;
     private String mLink;
-    private String mTag;
 
-    public Article(String h, String a, String ss, String ls,String l, String t) {
+    public Article(String h, String ss, String ls,String l) {
         mHeadline = h;
-        mAuthors = a;
         mShort = ss;
         mLong = ls;
         mLink = l;
-        mTag = t;
     }
 
     public String getHeadline() {
@@ -27,22 +23,6 @@ public class Article {
 
     public void setHeadline(String headline) {
         mHeadline = headline;
-    }
-
-    public String getLink() {
-        return mLink;
-    }
-
-    public void setLink(String link) {
-        mLink = link;
-    }
-
-    public String getAuthor() {
-        return mAuthors;
-    }
-
-    public void setAuthor(String author) {
-        mAuthors = author;
     }
 
     public String getShort() {
@@ -61,11 +41,11 @@ public class Article {
         mLong = aLong;
     }
 
-    public String getTag() {
-        return mTag;
+    public String getLink() {
+        return mLink;
     }
 
-    public void setTag(String tag) {
-        mTag = tag;
+    public void setLink(String link) {
+        mLink = link;
     }
 }

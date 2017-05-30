@@ -6,10 +6,10 @@ package com.kaiamelung.debrief;
 
 public class Day {
     private String mDate;
-    private Article[] mArticles;
-    public Day(String d, Article[] a){
+    private Tag[] mTag;
+    public Day(String d, Tag[] t){
         mDate = d;
-        mArticles = a;
+        mTag = t;
     }
 
     public String getDate() {
@@ -20,11 +20,11 @@ public class Day {
         mDate = date;
     }
 
-    public Article[] getArticle() {
-        return mArticles;
+    public Tag[] getTag() {
+        return mTag;
     }
 
-    public void setArticle(Article[] article) {
-        mArticles = article;
+    public void setTag(Tag[] t) {
+        mTag = t;
     }
 }
