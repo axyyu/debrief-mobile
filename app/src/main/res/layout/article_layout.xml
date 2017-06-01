@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:gravity="fill_horizontal"
+              android:orientation="vertical"
               android:padding="10dp"
               android:background="@color/tag_color"
+              android:id="@+id/tag_background"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
@@ -13,16 +13,16 @@
         android:text="@string/tag"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:id="@+id/tag"
+        android:id="@+id/headline"
         android:textColor="@color/text_color"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/article_title"
+        android:text="@string/tag"
+        android:id="@+id/shortsum"
         android:textSize="15sp"
-        android:paddingLeft="5dp"
-        android:id="@+id/headline"
         android:textColor="@color/text_color"/>
+
 
 </LinearLayout>

@@ -28,10 +28,8 @@ public class TagAdapter extends
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public TextView mDate;
-        public ArrayList<Article> mArticles;
-        public RecyclerView mArticleView;
-        public ArticleAdapter mArticleAdapter;
+        public TextView mTag;
+        public LinearLayout mHeadlines;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -39,8 +37,8 @@ public class TagAdapter extends
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
-            mDate = (TextView) itemView.findViewById(R.id.date);
-            mArticleView = (RecyclerView) itemView.findViewById(R.id.article_view);
+            mHeadlines = (LinearLayout) itemView.findViewById(R.id.headline_list);
+            mTag = (TextView) itemView.findViewById(R.id.tag_value);
         }
     }
 
@@ -69,7 +67,7 @@ public class TagAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.day_layout, parent, false);
+        View contactView = inflater.inflate(R.layout.tag_layout, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
@@ -83,7 +81,7 @@ public class TagAdapter extends
         Day day = mDays.get(position);
 
         // Set item views based on your views and data model
-        TextView date = viewHolder.mDate;
+        TextView tag = viewHolder.mTag;
     }
 
     // Returns the total count of items in the list

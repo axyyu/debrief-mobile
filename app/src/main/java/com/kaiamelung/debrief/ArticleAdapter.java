@@ -28,7 +28,7 @@ public class ArticleAdapter extends
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public TextView mTag;
+        public TextView mShort;
         public TextView mHeadline;
 
         // We also create a constructor that accepts the entire item row
@@ -37,8 +37,8 @@ public class ArticleAdapter extends
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(itemView);
-            mTag = (TextView) itemView.findViewById(R.id.tag);
             mHeadline = (TextView) itemView.findViewById(R.id.headline);
+            mShort = (TextView) itemView.findViewById(R.id.shortsum);
         }
     }
 
@@ -66,7 +66,7 @@ public class ArticleAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.day_layout, parent, false);
+        View contactView = inflater.inflate(R.layout.article_layout, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
@@ -80,11 +80,11 @@ public class ArticleAdapter extends
         Article article = mArticles.get(position);
 
         // Set item views based on your views and data model
-        TextView tag = viewHolder.mTag;
         TextView headline = viewHolder.mHeadline;
+        TextView shortsum = viewHolder.mHeadline;
 
-        tag.setText(article.getTag());
         headline.setText(article.getHeadline());
+        shortsum.setText(article.getShort());
     }
 
     // Returns the total count of items in the list

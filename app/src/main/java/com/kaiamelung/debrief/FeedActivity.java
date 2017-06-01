@@ -1,15 +1,24 @@
 package com.kaiamelung.debrief;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.gesture.GestureOverlayView;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -19,6 +28,8 @@ public class FeedActivity extends AppCompatActivity {
     private RecyclerView mTag;
     private TagAdapter adapter;
 
+    private TextView mDate;
+
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotifyMgr;
 
@@ -27,10 +38,10 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-
+        mDate = (TextView) findViewById(R.id.date);
 
         // Lookup the recyclerview in activity layout
-        mTag = (RecyclerView) findViewById(R.id.day_list);
+        mTag = (RecyclerView) findViewById(R.id.tag_list);
 
         tags = new ArrayList<Day>();
         // Create adapter passing in the sample user data
@@ -40,5 +51,17 @@ public class FeedActivity extends AppCompatActivity {
         mTag.setAdapter(adapter);
         // Set layout manager to position the items
         mTag.setLayoutManager(new LinearLayoutManager(this));
+
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(FeedActivity.this) {
+            @Override
+            public void onSwipeLeft() {
+
+            }
+            @Override
+            public void onSwipeRight() {
+
+            }
+        };
+
     }
 }
