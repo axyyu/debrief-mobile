@@ -4,12 +4,7 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-<<<<<<< HEAD
-import android.gesture.GestureOverlayView;
-import android.support.v4.view.MotionEventCompat;
-=======
 import android.content.SharedPreferences;
->>>>>>> 36dabc1e2af7c26b7d7f71b0e65de64ca9708369
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
