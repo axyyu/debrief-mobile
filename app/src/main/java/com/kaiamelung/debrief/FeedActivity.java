@@ -2,9 +2,14 @@ package com.kaiamelung.debrief;
 
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.gesture.GestureOverlayView;
 import android.support.v4.view.MotionEventCompat;
+=======
+import android.content.SharedPreferences;
+>>>>>>> 36dabc1e2af7c26b7d7f71b0e65de64ca9708369
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -39,6 +44,14 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         mDate = (TextView) findViewById(R.id.date);
+
+        SharedPreferences sharedPref = FeedActivity.this.getPreferences(Context.MODE_PRIVATE);
+        int tagNumber = sharedPref.getInt(getString(R.string.saved_tag_num), 0);
+        if(tagNumber==0){
+            //launch chooser
+            Intent intent = new Intent(this, ChooseTagActivity.class);
+            startActivity(intent);
+        }
 
         // Lookup the recyclerview in activity layout
         mTag = (RecyclerView) findViewById(R.id.tag_list);

@@ -8,5 +8,7 @@
     <string name="article">Article Name</string>
 
     <string name="article_title">Article Name</string>
+    <string name="saved_tag_num">caklsdcjoasdflkjasdf;askdfi9ee</string>
+    <integer name="tagNums">13</integer>
     <string name="tag">tag</string>
 </resources>

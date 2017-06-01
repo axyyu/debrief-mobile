@@ -15,7 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".TagActivity">
+=======
+        <activity android:name=".ChooseTagActivity">
+>>>>>>> 36dabc1e2af7c26b7d7f71b0e65de64ca9708369
         </activity>
     </application>
 
