@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class FeedActivity extends AppCompatActivity {
 
-    private ArrayList<Day> tags;
+    private ArrayList<Tag> tags;
     private RecyclerView mTag;
     private TagAdapter adapter;
 
@@ -51,7 +51,7 @@ public class FeedActivity extends AppCompatActivity {
         // Lookup the recyclerview in activity layout
         mTag = (RecyclerView) findViewById(R.id.tag_list);
 
-        tags = new ArrayList<Day>();
+        tags = new ArrayList<Tag>();
         // Create adapter passing in the sample user data
         adapter = new TagAdapter(this, tags);
 
@@ -63,11 +63,11 @@ public class FeedActivity extends AppCompatActivity {
         OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(FeedActivity.this) {
             @Override
             public void onSwipeLeft() {
-
+                mDate.setText("6/10/2017");
             }
             @Override
             public void onSwipeRight() {
-
+                mDate.setText("6/12/2017");
             }
         };
 

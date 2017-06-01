@@ -43,15 +43,15 @@ public class TagAdapter extends
     }
 
     // Store a member variable for the contacts
-    private List<Day> mDays;
+    private List<Tag> mTags;
     private List<Article> articles;
 
     // Store the context for easy access
     private Context mContext;
 
     // Pass in the contact array into the constructor
-    public TagAdapter(Context context, List<Day> contacts) {
-        mDays = contacts;
+    public TagAdapter(Context context, List<Tag> contacts) {
+        mTags = contacts;
         mContext = context;
     }
 
@@ -78,15 +78,16 @@ public class TagAdapter extends
     @Override
     public void onBindViewHolder(TagAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
-        Day day = mDays.get(position);
+        Tag tag = mTags.get(position);
 
         // Set item views based on your views and data model
-        TextView tag = viewHolder.mTag;
+        TextView mTag = viewHolder.mTag;
+
     }
 
     // Returns the total count of items in the list
     @Override
     public int getItemCount() {
-        return mDays.size();
+        return mTags.size();
     }
 }
