@@ -1,7 +1,9 @@
 package com.kaiamelung.debrief;
 
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -26,8 +28,13 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-
-
+        SharedPreferences sharedPref = FeedActivity.this.getPreferences(Context.MODE_PRIVATE);
+        int tagNumber = sharedPref.getInt(getString(R.string.saved_tag_num), 0);
+        if(tagNumber==0){
+            //launch chooser
+            Intent intent = new Intent(this, ChooseTagActivity.class);
+            startActivity(intent);
+        }
 
         // Lookup the recyclerview in activity layout
         mTag = (RecyclerView) findViewById(R.id.day_list);

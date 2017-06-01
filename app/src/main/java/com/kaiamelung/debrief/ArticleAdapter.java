@@ -83,7 +83,7 @@ public class ArticleAdapter extends
         TextView tag = viewHolder.mTag;
         TextView headline = viewHolder.mHeadline;
 
-        tag.setText(article.getTag());
+        //tag.setText(article.getTag());
         headline.setText(article.getHeadline());
     }
 
