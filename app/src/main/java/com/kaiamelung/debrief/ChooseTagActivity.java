@@ -7,9 +7,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class ChooseTagActivity extends AppCompatActivity {
-    //private String tagArrrayAvailable[] = new String[R.integer.tagNums];
-    //private String tagArrrayChosen[] = new String[R.integer.tagNums];
+    private ArrayList<String> tagArrayAvailable;
+    private ArrayList<String> tagArrayChosen;
+    private String[] tags;
 
     private FlowLayout selected;
     private FlowLayout unselected;
@@ -52,6 +55,10 @@ public class ChooseTagActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_tag);
+        tagArrayAvailable = new ArrayList<String>(getResources().getInteger(R.integer.tagNums));
+        tagArrayChosen = new ArrayList<String>(getResources().getInteger(R.integer.tagNums));
+        tags = getResources().getStringArray(R.array.tags);
+
 
         selected = (FlowLayout) findViewById(R.id.selected);
         unselected = (FlowLayout) findViewById(R.id.unselected);
