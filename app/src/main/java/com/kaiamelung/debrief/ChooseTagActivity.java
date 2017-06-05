@@ -40,7 +40,8 @@ public class ChooseTagActivity extends AppCompatActivity {
             t.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // do you work here
+                    selected.addView(v);
+                    unselected.removeView(v);
                 }
             });
             unselected.addView(t);
