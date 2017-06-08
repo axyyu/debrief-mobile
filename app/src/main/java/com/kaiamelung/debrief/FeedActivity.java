@@ -29,9 +29,38 @@ public class FeedActivity extends AppCompatActivity {
     private TagAdapter adapter;
 
     private TextView mDate;
+    private SharedPreferences sharedPref;
 
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotifyMgr;
+
+    private void fetchData(){
+        tags = new ArrayList<Tag>();
+        adapter.notifyDataSetChanged();
+        int a =0;
+        while(true){
+            String name = sharedPref.getString("" + a, "none");
+            String color= sharedPref.getString("" + a + "c", "none");
+            if(name.equals("none") || color.equals("none")){
+                break;
+            }
+            else{
+
+            }
+            a++;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                fetchData();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +69,15 @@ public class FeedActivity extends AppCompatActivity {
 
         mDate = (TextView) findViewById(R.id.date);
 
-        SharedPreferences sharedPref = FeedActivity.this.getPreferences(Context.MODE_PRIVATE);
+        sharedPref = this.getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
         int tagNumber = sharedPref.getInt(getString(R.string.saved_tag_num), 0);
         if(tagNumber==0){
             //launch chooser
             Intent intent = new Intent(this, ChooseTagActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
+        }
+        else{
+            fetchData();
         }
 
         // Lookup the recyclerview in activity layout
