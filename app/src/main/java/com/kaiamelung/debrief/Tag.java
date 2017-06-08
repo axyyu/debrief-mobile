@@ -7,9 +7,11 @@ package com.kaiamelung.debrief;
 public class Tag {
     private String mTag;
     private Article[] mArticles;
-    public Tag(String t, Article[] a){
+    private String mColor;
+    public Tag(String t, Article[] a, String c){
         mTag = t;
         mArticles = a;
+        mColor = c;
     }
 
     public String getTag() {
@@ -26,5 +28,13 @@ public class Tag {
 
     public void setArticle(Article[] a) {
         mArticles = a;
+    }
+
+    public String getColor() {
+        return mColor;
+    }
+
+    public void setColor(String color) {
+        mColor = color;
     }
 }
