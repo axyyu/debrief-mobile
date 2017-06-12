@@ -1,10 +1,14 @@
 package com.kaiamelung.debrief;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -30,6 +35,7 @@ public class TagAdapter extends
         // for any view that will be set as you render a row
         public TextView mTag;
         public LinearLayout mHeadlines;
+        public Intent mIntent;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -39,6 +45,13 @@ public class TagAdapter extends
             super(itemView);
             mHeadlines = (LinearLayout) itemView.findViewById(R.id.headline_list);
             mTag = (TextView) itemView.findViewById(R.id.tag_value);
+            mIntent = new Intent(mContext, TagActivity.class);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mContext.startActivity(mIntent);
+                }
+            });
         }
     }
 
@@ -82,7 +95,27 @@ public class TagAdapter extends
 
         // Set item views based on your views and data model
         TextView mTag = viewHolder.mTag;
+        LinearLayout mHeadlines = viewHolder.mHeadlines;
+        Intent mIntent = viewHolder.mIntent;
 
+        mTag.setText(tag.getTag());
+        viewHolder.itemView.setBackgroundColor(Color.parseColor(tag.getColor()));
+
+        if(tag.getArticle() != null){
+            for(int a=0; a<3; a++){
+                Article art = tag.getArticle().get(a);
+                TextView head = new TextView(viewHolder.itemView.getContext());
+                head.setText(art.getHeadline());
+                head.setTextColor(Color.parseColor("#FFFFFF"));
+                head.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                head.setPadding(0,20,0,20);
+                mHeadlines.addView(head);
+            }
+        }
+        mIntent.putExtra("T", tag.getTag());
+        Bundle args = new Bundle();
+        args.putSerializable("ARRAYLIST",(Serializable)tag.getArticle());
+        mIntent.putExtra("A",args);
     }
 
     // Returns the total count of items in the list
