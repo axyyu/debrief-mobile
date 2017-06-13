@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,7 +38,8 @@ public class ArticleActivity extends AppCompatActivity {
         mTitle.setText(val);
 
         mContent = (TextView) findViewById(R.id.article_content);
-        mTitle.setText(val2);
+        mContent.setText(val2);
+        mContent.setMovementMethod(new ScrollingMovementMethod());
 
         mLink = (Button) findViewById(R.id.article_link);
         mLink.setOnClickListener(new View.OnClickListener() {

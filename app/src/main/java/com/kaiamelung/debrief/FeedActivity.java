@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.gesture.GestureOverlayView;
+import android.net.sip.SipAudioCall;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -35,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
     private ArrayList<Tag> tags;
     private RecyclerView mTag;
@@ -48,6 +50,12 @@ public class FeedActivity extends AppCompatActivity {
     private NotificationManager mNotifyMgr;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    private DateFormat mDateFormat = new SimpleDateFormat("M-d");
+    private Date date = new Date();
+    private Calendar cal = Calendar.getInstance();
+
+    private GestureDetector detector;
 
     private void fetchData(){
         tags.clear();
@@ -68,15 +76,7 @@ public class FeedActivity extends AppCompatActivity {
             a++;
         }
 
-        DateFormat dateFormat = new SimpleDateFormat("M-d");
-        Date date = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DAY_OF_YEAR,-1);
-        Date dateBefore = cal.getTime();
-        System.out.println("debriefings/"+dateFormat.format(dateBefore));
-
-        DatabaseReference myRef = database.getReference("debriefings/"+dateFormat.format(dateBefore));
+        DatabaseReference myRef = database.getReference("debriefings/"+mDateFormat.format(date));
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -96,6 +96,7 @@ public class FeedActivity extends AppCompatActivity {
                         ThreadGroup art = snapshot.getValue(ThreadGroup.class);
                         Article art2 = new Article(art.title, art.shortsum, art.longsum, art.url, b.getColor());
                         temp.add(art2);
+                        System.out.println(art.title);
                     }
                     if(temp.size() != 0){
                         b.setArticle(temp);
@@ -125,11 +126,48 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return detector.onTouchEvent(event);
+    }
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                           float velocityY) {
+        Toast.makeText(getApplicationContext(), "Fling Gesture", Toast.LENGTH_LONG).show();
+        return true;
+    }
+    @Override
+    public void onLongPress(MotionEvent e) {
+    }
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+                            float distanceY) {
+        return false;
+    }
+    @Override
+    public void onShowPress(MotionEvent e) {
+    }
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_YEAR,-1);
+        date = cal.getTime();
+
+        detector=new GestureDetector(getApplicationContext(), this);
+
         mDate = (TextView) findViewById(R.id.date);
+        mDate.setText(mDateFormat.format(date));
 
         // Lookup the recyclerview in activity layout
         mTag = (RecyclerView) findViewById(R.id.tag_list_view);

@@ -9,60 +9,43 @@
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
               android:orientation="vertical"
+              android:gravity="center_horizontal"
               android:background="@drawable/gradient"
               tools:context="com.kaiamelung.debrief.TagActivity">
 
-    <LinearLayout
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
             android:text="sports"
+            android:paddingBottom="10dp"
             android:id="@+id/article_name"
             android:textColor="@color/text_color"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_weight="5"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="10dp"
-        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="6"
             android:textSize="20sp"
             android:text="sports"
             android:id="@+id/article_content"
             android:textColor="@color/text_color"
+            android:scrollbars = "vertical"
             />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="10dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
 
         <Button
             android:layout_width="150dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:textSize="20sp"
+            android:paddingTop="10dp"
             android:text="full article"
             android:textAllCaps="false"
             android:background="@color/gradient_start"
             android:id="@+id/article_link"
             android:textColor="@color/text_color"
             />
-    </LinearLayout>
 
 </LinearLayout>
