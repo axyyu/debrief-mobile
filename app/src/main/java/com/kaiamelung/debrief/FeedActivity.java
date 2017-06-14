@@ -59,6 +59,7 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
 
     private void fetchData(){
         tags.clear();
+        adapter.notifyDataSetChanged();
         final ArrayList<Tag> temptags = new ArrayList<Tag>();
 //        adapter.notifyDataSetChanged();
         int a =0;
@@ -78,7 +79,7 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
 
         DatabaseReference myRef = database.getReference("debriefings/"+mDateFormat.format(date));
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("TAGS FOUND");
@@ -96,7 +97,6 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
                         ThreadGroup art = snapshot.getValue(ThreadGroup.class);
                         Article art2 = new Article(art.title, art.shortsum, art.longsum, art.url, b.getColor());
                         temp.add(art2);
-                        System.out.println(art.title);
                     }
                     if(temp.size() != 0){
                         b.setArticle(temp);
@@ -136,7 +136,19 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                            float velocityY) {
-        Toast.makeText(getApplicationContext(), "Fling Gesture", Toast.LENGTH_LONG).show();
+        if( Math.abs(velocityX)> Math.abs(2*velocityY)){
+            if(velocityX > 0){
+                cal.add(Calendar.DAY_OF_YEAR,-1);
+            }
+            else if (velocityX < 0){
+                cal.add(Calendar.DAY_OF_YEAR,+1);
+            }
+            date = cal.getTime();
+            mDate.setText(mDateFormat.format(date));
+            fetchData();
+        }
+        System.out.println("X:"+velocityX);
+        System.out.println("Y:"+velocityY);
         return true;
     }
     @Override

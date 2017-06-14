@@ -101,21 +101,38 @@ public class TagAdapter extends
         mTag.setText(tag.getTag());
         viewHolder.itemView.setBackgroundColor(Color.parseColor(tag.getColor()));
 
+        mHeadlines.removeAllViews();
         if(tag.getArticle() != null){
-            for(int a=0; a<3; a++){
-                Article art = tag.getArticle().get(a);
-                TextView head = new TextView(viewHolder.itemView.getContext());
-                head.setText(art.getHeadline());
-                head.setTextColor(Color.parseColor("#FFFFFF"));
-                head.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-                head.setPadding(0,20,0,20);
-                mHeadlines.addView(head);
+            if(tag.getArticle().size() > 3){
+                for(int a=0; a<3; a++){
+                    Article art = tag.getArticle().get(a);
+                    TextView head = new TextView(viewHolder.itemView.getContext());
+                    head.setText(art.getHeadline());
+                    head.setTextColor(Color.parseColor("#FFFFFF"));
+                    head.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                    head.setPadding(0,20,0,20);
+                    mHeadlines.addView(head);
+                }
+            }
+            else{
+                for ( Article art: tag.getArticle()) {
+                    TextView head = new TextView(viewHolder.itemView.getContext());
+                    head.setText(art.getHeadline());
+                    head.setTextColor(Color.parseColor("#FFFFFF"));
+                    head.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                    head.setPadding(0,20,0,20);
+                    mHeadlines.addView(head);
+                }
             }
         }
-        mIntent.putExtra("T", tag.getTag());
+        mIntent.putExtra("S", mTags.size());
         Bundle args = new Bundle();
-        args.putSerializable("ARRAYLIST",(Serializable)tag.getArticle());
+        for(int a = 0; a<mTags.size(); a++){
+            mIntent.putExtra("T"+a, mTags.get(a).getTag());
+            args.putSerializable("A"+a,(Serializable) mTags.get(a).getArticle());
+        }
         mIntent.putExtra("A",args);
+        mIntent.putExtra("I",position);
     }
 
     // Returns the total count of items in the list
