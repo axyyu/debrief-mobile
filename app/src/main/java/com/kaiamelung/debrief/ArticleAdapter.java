@@ -100,9 +100,11 @@ public class ArticleAdapter extends
         shortsum.setText(article.getShort());
         viewHolder.itemView.setBackgroundColor(Color.parseColor(article.getColor()));
 
-        mIntent.putExtra("A", article.getHeadline());
-        mIntent.putExtra("C", article.getLong());
-        mIntent.putExtra("L", article.getLink());
+        mIntent.putExtra("S", mArticles.size());
+        Bundle args = new Bundle();
+        args.putSerializable("ARRAY",(Serializable) mArticles);
+        mIntent.putExtra("A",args);
+        mIntent.putExtra("I",position);
     }
 
     // Returns the total count of items in the list
