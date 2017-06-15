@@ -1,5 +1,6 @@
 package com.kaiamelung.debrief;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,6 +42,7 @@ public class ChooseTagActivity extends AppCompatActivity {
             editor.putString(""+a+"c", selectedThreads.get(a).getColor());
         }
         editor.commit();
+        setResult(Activity.RESULT_OK);
         finish();
     }
 

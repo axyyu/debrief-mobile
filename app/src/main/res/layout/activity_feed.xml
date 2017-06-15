@@ -24,25 +24,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <!--<LinearLayout
         android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:text="@string/feed"
-            android:id="@+id/date"
-            android:textColor="@color/text_color"/>
-    </LinearLayout>
+        android:layout_weight="4"/>
 
     <LinearLayout
-        android:layout_weight="6"
+        android:layout_weight="3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical">
@@ -53,6 +39,6 @@
             android:id="@+id/tag_list_view">
 
         </android.support.v7.widget.RecyclerView>
-    </LinearLayout>-->
+    </LinearLayout>
 
 </LinearLayout>

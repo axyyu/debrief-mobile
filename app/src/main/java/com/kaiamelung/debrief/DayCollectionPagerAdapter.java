@@ -28,6 +28,8 @@ public class DayCollectionPagerAdapter extends FragmentStatePagerAdapter {
         Bundle args = new Bundle();
         // Our object is just an integer :-P
         args.putInt(DayFragment.ARG_OBJECT, i + 1);
+        args.putInt(DayFragment.ARG_OBJECT2, count);
+
         fragment.setArguments(args);
 
 
@@ -36,17 +38,17 @@ public class DayCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        DateFormat dateFormat = new SimpleDateFormat("M-d");
+        DateFormat dateFormat = new SimpleDateFormat("M-d-y");
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        cal.add(Calendar.DAY_OF_YEAR,-1);
+        cal.add(Calendar.DAY_OF_YEAR,0);
         Date dateBefore = cal.getTime();
         SimpleDateFormat simpleDateFormat =
                 new SimpleDateFormat("M-d");
 
         try{
-            Date a = dateFormat.parse("6-7");
+            Date a = dateFormat.parse("6-7-2017");
             long diff = dateBefore.getTime() - a.getTime();
             long seconds = diff / 1000;
             long minutes = seconds / 60;

@@ -5,17 +5,10 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
-import android.net.Uri;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-
 import android.gesture.GestureOverlayView;
+import android.net.Uri;
 import android.net.sip.SipAudioCall;
-
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -23,10 +16,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,11 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-
-public class FeedActivity extends FragmentActivity implements DayFragment.OnFragmentInteractionListener {
-
-public class FeedActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
-
+public class FeedActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, DayFragment.OnFragmentInteractionListener {
 
     private ArrayList<Tag> tags;
     private RecyclerView mTag;
@@ -63,13 +50,6 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
 
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotifyMgr;
-   private DayCollectionPagerAdapter mDayCollectionPagerAdapter;
-    private ViewPager mViewPager;
-
-
-    /*private void fetchData(){
-        tags = new ArrayList<Tag>();
-        adapter.notifyDataSetChanged();
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -77,14 +57,17 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
     private Date date = new Date();
     private Calendar cal = Calendar.getInstance();
 
+
     private GestureDetector detector;
+
+    DayCollectionPagerAdapter mDayCollectionPagerAdapter;
+    ViewPager mViewPager;
 
     private void fetchData(){
         tags.clear();
         adapter.notifyDataSetChanged();
         final ArrayList<Tag> temptags = new ArrayList<Tag>();
 //        adapter.notifyDataSetChanged();
-
         int a =0;
         System.out.println("BEGIN");
         while(true){
@@ -99,9 +82,6 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
             }
             a++;
         }
-
-    }*/
-
 
         DatabaseReference myRef = database.getReference("debriefings/"+mDateFormat.format(date));
 
@@ -139,7 +119,10 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
             }
         });
     }
-
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -147,7 +130,8 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
         if (requestCode == 1) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-              //  fetchData();
+                fetchData();
+                System.out.println("OK VERY GOOD AWESOME");
             }
         }
     }
@@ -199,41 +183,26 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-
-        mDayCollectionPagerAdapter =
-                new DayCollectionPagerAdapter(
-                        getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mDayCollectionPagerAdapter);
-
-        mDate = (TextView) findViewById(R.id.date);
-
-        sharedPref = this.getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
-        int tagNumber = sharedPref.getInt(getString(R.string.saved_tag_num), 0);
-       /* if(tagNumber==0){
-            //launch chooser
-            Intent intent = new Intent(this, ChooseTagActivity.class);
-            startActivityForResult(intent, 1);
-        }
-        else{
-          //  fetchData();
-        }
-
         cal.setTime(date);
         cal.add(Calendar.DAY_OF_YEAR,-1);
         date = cal.getTime();
 
         detector=new GestureDetector(getApplicationContext(), this);
 
-
         mDate = (TextView) findViewById(R.id.date);
         mDate.setText(mDateFormat.format(date));
+        mDayCollectionPagerAdapter =
+                new DayCollectionPagerAdapter(
+                        getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mDayCollectionPagerAdapter);
+        mViewPager.setCurrentItem(mDayCollectionPagerAdapter.getCount()-1);
 
         // Lookup the recyclerview in activity layout
         mTag = (RecyclerView) findViewById(R.id.tag_list_view);
         tags = new ArrayList<Tag>();
 
-//        tags.add(new Tag("test",null, "#FFFFFF"))<<<<<< HEAD
+//        tags.add(new Tag("test",null, "#FFFFFF"));
 
         // Create adapter passing in the sample user data
         adapter = new TagAdapter(this, tags);
@@ -242,19 +211,6 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
         mTag.setAdapter(adapter);
         // Set layout manager to position the items
         mTag.setLayoutManager(new LinearLayoutManager(this));
-
-
-        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(FeedActivity.this) {
-            @Override
-            public void onSwipeLeft() {
-                mDate.setText("6/10/2017");
-            }
-            @Override
-            public void onSwipeRight() {
-                mDate.setText("6/12/2017");
-            }
-        };*/
-
 
         sharedPref = this.getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
         int tagNumber = sharedPref.getInt(getString(R.string.saved_tag_num), 0);
@@ -266,11 +222,5 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
         else{
             fetchData();
         }
-
-    }
-    @Override
-    public void onFragmentInteraction(Uri uri){
-        //you can leave it empty
     }
 }
-
