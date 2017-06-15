@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.Window;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -93,6 +94,7 @@ public class TagActivity extends AppCompatActivity implements GestureDetector.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_tag);
 
         System.out.println("CREATED ACTIVITY");
