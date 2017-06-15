@@ -25,7 +25,6 @@ public class ChooseTagActivity extends AppCompatActivity {
             new Thread("literature","#CC6f09ce"),
             new Thread("politics","#CC09a6ce"),
             new Thread("music","#CCff09ce"),
-            new Thread("history","#CC0961ce"),
             new Thread("movies","#CCce098c"),
             new Thread("space","#CC09ce8f"),
             new Thread("money","#CC7fce09"),

@@ -1,7 +1,10 @@
 package com.kaiamelung.debrief;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -30,6 +34,7 @@ public class ArticleAdapter extends
         // for any view that will be set as you render a row
         public TextView mShort;
         public TextView mHeadline;
+        public Intent mIntent;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -39,6 +44,13 @@ public class ArticleAdapter extends
             super(itemView);
             mHeadline = (TextView) itemView.findViewById(R.id.headline);
             mShort = (TextView) itemView.findViewById(R.id.shortsum);
+            mIntent = new Intent(mContext, ArticleActivity.class);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mContext.startActivity(mIntent);
+                }
+            });
         }
     }
 
@@ -81,10 +93,16 @@ public class ArticleAdapter extends
 
         // Set item views based on your views and data model
         TextView headline = viewHolder.mHeadline;
-        TextView shortsum = viewHolder.mHeadline;
+        TextView shortsum = viewHolder.mShort;
+        Intent mIntent = viewHolder.mIntent;
 
         headline.setText(article.getHeadline());
         shortsum.setText(article.getShort());
+        viewHolder.itemView.setBackgroundColor(Color.parseColor(article.getColor()));
+
+        mIntent.putExtra("A", article.getHeadline());
+        mIntent.putExtra("C", article.getLong());
+        mIntent.putExtra("L", article.getLink());
     }
 
     // Returns the total count of items in the list
