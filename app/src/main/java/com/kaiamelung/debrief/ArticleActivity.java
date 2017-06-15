@@ -40,7 +40,7 @@ public class ArticleActivity extends AppCompatActivity implements GestureDetecto
         mTitle.setText(mArticles.get(currentPosition).getHeadline());
         mContent.setText(mArticles.get(currentPosition).getLong());
 
-        screen.setBackgroundColor(Color.parseColor("#ffffff"));
+        screen.setBackgroundColor(Color.parseColor(mArticles.get(currentPosition).getColor()));
 
         launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         mLink.setOnClickListener(new View.OnClickListener() {
