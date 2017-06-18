@@ -3,6 +3,7 @@ package com.kaiamelung.debrief;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +19,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class ArticleActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
+public class ArticleActivity extends AppCompatActivity implements ArticleFragment.OnFragmentInteractionListener {
 
     private TextView mTitle;
     private TextView mContent;
@@ -35,6 +36,8 @@ public class ArticleActivity extends AppCompatActivity implements GestureDetecto
 
     private Uri uriUrl;
     private Intent launchBrowser;
+    private ViewPager mViewPager;
+    private ArticleCollectionPagerAdapter mArticleCollectionPagerAdapter;
 
     public void setupArticle(){
         uriUrl = Uri.parse(mArticles.get(currentPosition).getLink());
@@ -50,8 +53,10 @@ public class ArticleActivity extends AppCompatActivity implements GestureDetecto
             }
         });
     }
-
-    @Override
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
+    }
+    /*@Override
     public boolean onTouchEvent(MotionEvent event) {
         return detector.onTouchEvent(event);
     }
@@ -95,7 +100,7 @@ public class ArticleActivity extends AppCompatActivity implements GestureDetecto
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
         return true;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,22 +110,30 @@ public class ArticleActivity extends AppCompatActivity implements GestureDetecto
 
         intent = getIntent();
         Bundle bund= intent.getBundleExtra("A");
-        mArticles = (ArrayList<Article>) bund.getSerializable("ARRAY");
+        //mArticles = (ArrayList<Article>) bund.getSerializable("ARRAY");
 
-        screen = findViewById(R.id.activity_article);
+        //screen = findViewById(R.id.activity_article);
 
         size = intent.getIntExtra("S", 0);
         currentPosition = intent.getIntExtra("I",0);
 
-        detector=new GestureDetector(getApplicationContext(), this);
+        //detector=new GestureDetector(getApplicationContext(), this);
 
-        mTitle = (TextView) findViewById(R.id.article_name);
+        //mTitle = (TextView) findViewById(R.id.article_name);
 
-        mContent = (TextView) findViewById(R.id.article_content);
-        mContent.setMovementMethod(new ScrollingMovementMethod());
+        //mContent = (TextView) findViewById(R.id.article_content);
+        //mContent.setMovementMethod(new ScrollingMovementMethod());
 
-        mLink = (Button) findViewById(R.id.article_link);
+        //mLink = (Button) findViewById(R.id.article_link);
+        // size, article array
 
-        setupArticle();
+        mArticleCollectionPagerAdapter =
+                new ArticleCollectionPagerAdapter(
+                        getSupportFragmentManager(),size,bund);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mArticleCollectionPagerAdapter);
+        mViewPager.setCurrentItem(currentPosition);
+
+        //setupArticle();
     }
 }

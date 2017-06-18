@@ -105,6 +105,7 @@ public class ArticleAdapter extends
         args.putSerializable("ARRAY",(Serializable) mArticles);
         mIntent.putExtra("A",args);
         mIntent.putExtra("I",position);
+
     }
 
     // Returns the total count of items in the list

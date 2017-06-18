@@ -145,23 +145,23 @@ public class DayFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         // Lookup the recyclerview in activity layout
+        sharedPref = this.getActivity().getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
 
-
-        tags = new ArrayList<Tag>();
+       // tags = new ArrayList<Tag>();
 
 //        tags.add(new Tag("test",null, "#FFFFFF"));
-        mTag = (RecyclerView) getView().findViewById(R.id.tag_recyc_view);
+        //mTag = (RecyclerView) getView().findViewById(R.id.tag_recyc_view);
 
         // Create adapter passing in the sample user data
-        adapter = new TagAdapter(this.getActivity(), tags);
+       // adapter = new TagAdapter(this.getActivity(), tags);
 
         // Attach the adapter to the recyclerview to populate items
-        mTag.setAdapter(adapter);
+       // mTag.setAdapter(adapter);
         // Set layout manager to position the items
-        mTag.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+      //  mTag.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-        sharedPref = this.getActivity().getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
-        fetchData();
+      //  sharedPref = this.getActivity().getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
+      //  fetchData();
         /*
         cal.setTime(date);
         cal.add(Calendar.DAY_OF_YEAR,-1);
@@ -211,7 +211,7 @@ public class DayFragment extends Fragment {
         int daysBack = getArguments().getInt(ARG_OBJECT);
         int count = getArguments().getInt(ARG_OBJECT2);
         Calendar cal = Calendar.getInstance();
-        Date date = new Date();
+        date = new Date();
         cal.setTime(date);
         cal.add(Calendar.DAY_OF_YEAR,(-1*(count-daysBack+1)));
         date = cal.getTime();
@@ -219,6 +219,20 @@ public class DayFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_day, container, false);
         DateFormat mDateFormat = new SimpleDateFormat("M-d");
         ((TextView)v.findViewById(R.id.date)).setText(mDateFormat.format(date));
+
+        mTag = (RecyclerView) v.findViewById(R.id.tag_recyc_view);
+        tags = new ArrayList<Tag>();
+
+//        tags.add(new Tag("test",null, "#FFFFFF"));
+
+        // Create adapter passing in the sample user data
+        adapter = new TagAdapter(this.getContext(), tags);
+
+        // Attach the adapter to the recyclerview to populate items
+        mTag.setAdapter(adapter);
+        // Set layout manager to position the items
+        mTag.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        fetchData();
         return v;
     }
 

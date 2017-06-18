@@ -40,7 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class FeedActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, DayFragment.OnFragmentInteractionListener {
+public class FeedActivity extends AppCompatActivity implements /*GestureDetector.OnGestureListener,*/ DayFragment.OnFragmentInteractionListener {
 
     private ArrayList<Tag> tags;
     private RecyclerView mTag;
@@ -130,14 +130,20 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
         // Check which request we're responding to
         if (requestCode == 1) {
             // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                fetchData();
+            if (resultCode == Activity.RESULT_OK) {
+                //fetchData();
+                mDayCollectionPagerAdapter =
+                        new DayCollectionPagerAdapter(
+                                getSupportFragmentManager());
+                mViewPager = (ViewPager) findViewById(R.id.pager);
+                mViewPager.setAdapter(mDayCollectionPagerAdapter);
+                mViewPager.setCurrentItem(mDayCollectionPagerAdapter.getCount()-1);
                 System.out.println("OK VERY GOOD AWESOME");
             }
         }
     }
 
-    @Override
+   /* @Override
     public boolean onTouchEvent(MotionEvent event) {
         return detector.onTouchEvent(event);
     }
@@ -177,7 +183,7 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
         return true;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,7 +191,7 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_feed);
 
-        cal.setTime(date);
+        /*cal.setTime(date);
         cal.add(Calendar.DAY_OF_YEAR,-1);
         date = cal.getTime();
 
@@ -193,12 +199,7 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
 
         mDate = (TextView) findViewById(R.id.date);
         mDate.setText(mDateFormat.format(date));
-        mDayCollectionPagerAdapter =
-                new DayCollectionPagerAdapter(
-                        getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mDayCollectionPagerAdapter);
-        mViewPager.setCurrentItem(mDayCollectionPagerAdapter.getCount()-1);
+
 
         // Lookup the recyclerview in activity layout
         mTag = (RecyclerView) findViewById(R.id.tag_list_view);
@@ -212,7 +213,7 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
         // Attach the adapter to the recyclerview to populate items
         mTag.setAdapter(adapter);
         // Set layout manager to position the items
-        mTag.setLayoutManager(new LinearLayoutManager(this));
+        mTag.setLayoutManager(new LinearLayoutManager(this));*/
 
         sharedPref = this.getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
         int tagNumber = sharedPref.getInt(getString(R.string.saved_tag_num), 0);
@@ -222,7 +223,12 @@ public class FeedActivity extends AppCompatActivity implements GestureDetector.O
             startActivityForResult(intent, 1);
         }
         else{
-            fetchData();
+            mDayCollectionPagerAdapter =
+                    new DayCollectionPagerAdapter(
+                            getSupportFragmentManager());
+            mViewPager = (ViewPager) findViewById(R.id.pager);
+            mViewPager.setAdapter(mDayCollectionPagerAdapter);
+            mViewPager.setCurrentItem(mDayCollectionPagerAdapter.getCount()-1);
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.kaiamelung.debrief;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class TagActivity extends AppCompatActivity implements GestureDetector.OnGestureListener{
+public class TagActivity extends AppCompatActivity implements TagFragment.OnFragmentInteractionListener{
 
     private ArrayList<Article> articles;
     private RecyclerView mArticles;
@@ -27,7 +29,12 @@ public class TagActivity extends AppCompatActivity implements GestureDetector.On
     private int currentPosition;
 
     private GestureDetector detector;
-
+    private ViewPager mViewPager;
+    private TagCollectionPagerAdapter mTagCollectionPagerAdapter;
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
+    }
     public void setupArticles(){
         System.out.println(currentPosition+"");
         articles = (ArrayList<Article>) bund.getSerializable("A"+currentPosition);
@@ -45,7 +52,7 @@ public class TagActivity extends AppCompatActivity implements GestureDetector.On
 //        adapter.notifyDataSetChanged();
     }
 
-    @Override
+   /* @Override
     public boolean onTouchEvent(MotionEvent event) {
         return detector.onTouchEvent(event);
     }
@@ -89,7 +96,7 @@ public class TagActivity extends AppCompatActivity implements GestureDetector.On
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
         return true;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +110,13 @@ public class TagActivity extends AppCompatActivity implements GestureDetector.On
         size = intent.getIntExtra("S",0);
         bund= intent.getBundleExtra("A");
         currentPosition = intent.getIntExtra("I",0);
+        //Make tag string array to pass on
+        String[] tags = new String[size];
+        for(int i = 0;i<size;i++){
+            tags[i]=intent.getStringExtra("T"+i);
+        }
 
-        tag = (TextView) findViewById(R.id.tag);
+        /*tag = (TextView) findViewById(R.id.tag);
 
         detector=new GestureDetector(getApplicationContext(), this);
 
@@ -118,8 +130,15 @@ public class TagActivity extends AppCompatActivity implements GestureDetector.On
         // Attach the adapter to the recyclerview to populate items
         mArticles.setAdapter(adapter);
         // Set layout manager to position the items
-        mArticles.setLayoutManager(new LinearLayoutManager(this));
+        mArticles.setLayoutManager(new LinearLayoutManager(this));*/
 
-        setupArticles();
+        mTagCollectionPagerAdapter =
+                new TagCollectionPagerAdapter(
+                        getSupportFragmentManager(),size,bund,tags);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mTagCollectionPagerAdapter);
+        mViewPager.setCurrentItem(currentPosition);
+
+        //setupArticles();
     }
 }
