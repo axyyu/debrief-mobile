@@ -89,6 +89,7 @@ public class ArticleFragment extends Fragment {
         //v.setBackgroundColor(Color.parseColor(a.getColor()));
         ((View) getActivity().findViewById(R.id.activity_article)).setBackgroundColor(Color.parseColor(a.getColor()));
         mLink = (Button) v.findViewById(R.id.article_link);
+        mLink.setBackgroundColor(Color.parseColor(a.getColor()));
         launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         mLink.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

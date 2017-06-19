@@ -20,13 +20,13 @@ public class ChooseTagActivity extends AppCompatActivity {
     private FlowLayout unselected;
 
     private Thread[] threadList = new Thread[]{
-            new Thread("technology","#CCffae00"),
+            new Thread("tech","#CCffae00"),
             new Thread("science","#CC11d10a"),
             new Thread("world","#CCce7509"),
             new Thread("politics","#CC09a6ce"),
             new Thread("music","#CCff09ce"),
             new Thread("movies","#CCce098c"),
-            new Thread("entertainment","#CC09ce8f"),
+            new Thread("tv","#CC09ce8f"),
             new Thread("money","#CC7fce09"),
             new Thread("sports","#CCce0909")
     };

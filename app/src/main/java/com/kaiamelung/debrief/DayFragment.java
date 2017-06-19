@@ -113,10 +113,14 @@ public class DayFragment extends Fragment {
 
                 for(Tag b : temptags) {
                     ArrayList<Article> temp = new ArrayList<Article>();
-                    System.out.println(b.getTag());
-                    System.out.println(dataSnapshot.child(b.getTag()));
-                    System.out.println(dataSnapshot.child(b.getTag()).getValue());
-                    for (DataSnapshot snapshot : dataSnapshot.child(b.getTag()).getChildren()) {
+                    String name = b.getTag();
+                    if(name.equals("tech")){
+                        name = "technology";
+                    }
+                    else if(name.equals("tv")){
+                        name = "entertainment";
+                    }
+                    for (DataSnapshot snapshot : dataSnapshot.child(name).getChildren()) {
                         ThreadGroup art = snapshot.getValue(ThreadGroup.class);
                         Article art2 = new Article(art.title, art.shortsum, art.longsum, art.url, b.getColor());
                         temp.add(art2);
