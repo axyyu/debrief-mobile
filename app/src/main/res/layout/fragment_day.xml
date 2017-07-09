@@ -3,16 +3,25 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
               android:orientation="vertical"
+              android:gravity="center_horizontal"
              tools:context="com.kaiamelung.debrief.DayFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="@string/feed"
-        android:id="@+id/date"
-        android:textColor="@color/text_color"/>
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="6/11/2017"
+            android:id="@+id/date"
+            android:textColor="@color/text_color"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_weight="6"
         android:layout_width="match_parent"
@@ -22,6 +31,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:id="@+id/tag_recyc_view">
 
         </android.support.v7.widget.RecyclerView>

@@ -82,6 +82,12 @@ public class FeedActivity extends AppCompatActivity implements /*GestureDetector
                 break;
             }
             else{
+                if(name.equals("tech")){
+                    name = "technology";
+                }
+                else if(name.equals("tv")){
+                    name = "entertainment";
+                }
                 temptags.add(new Tag(name, null, color));
                 System.out.println(name);
             }

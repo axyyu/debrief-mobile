@@ -10,24 +10,33 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="20sp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:text="sports"
         android:textStyle="bold"
         android:id="@+id/article_name"
         android:textColor="@color/text_color"/>
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="8"
+        android:scrollbars="vertical"
+        android:fillViewport="true"
+        android:layout_margin="10dp"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="sports"
-        android:id="@+id/article_content"
-        android:textColor="@color/text_color"
-        android:scrollbars = "vertical"
-        />
+        android:paddingBottom="10dp">
 
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="sports"
+            android:textSize="15sp"
+            android:id="@+id/article_content"
+            android:textColor="@color/text_color"
+            />
+    </ScrollView>
 
     <Button
         android:layout_width="150dp"
@@ -39,6 +48,7 @@
         android:background="@color/gradient_start"
         android:id="@+id/article_link"
         android:textColor="@color/text_color"
+        android:layout_marginBottom="10dp"
         />
 
 </LinearLayout>
