@@ -9,7 +9,10 @@
 
     <string name="article_title">Article Name</string>
     <string name="saved_tag_num">caklsdcjoasdflkjasdf;askdfi9ee</string>
-    <string name="saved_threads">daklsdcjoasdflkjasdf;askdfi9ee</string>
+    <string name="saved_threads">daklsdcjoasdflkjkkllkkklklkasdf;askdfi9ee</string>
+    <string name="notif_on">dasdfaklsdcjasdfoasdflaaskjasdf;askdfi9ee</string>
+    <string name="notif_hour">dasdfaklsdcjasdfasdasoasdflaaskjasdf;askdfi9ee</string>
+    <string name="notif_minute">dasdfaklsdsadfascjasdfoasdflaaskjasdf;askdfi9ee</string>
 
     <integer name="tagNums">13</integer>
     <string name="tag">tag</string>

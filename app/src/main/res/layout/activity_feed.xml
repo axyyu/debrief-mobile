@@ -19,6 +19,27 @@
         android:text="@string/feed"
         android:id="@+id/date"
         android:textColor="@color/text_color"/>-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="chooseThreads"
+            android:text="Choose Threads"
+            android:layout_gravity="right"/>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="notif"
+            android:text="Notifications"
+            android:layout_gravity="left"/>
+
+    </LinearLayout>
+
 
     <android.support.v4.view.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
