@@ -19,6 +19,7 @@ public class NotifActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notif);
         mToggle = (ToggleButton) findViewById(R.id.toggleButton);
         mTimePicker = (TimePicker) findViewById(R.id.timePicker);
+        mToggle.setChecked(true);
         mToggle.setTextOn("Notifications On");
         mToggle.setTextOff("Notifications Off");
         mToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
