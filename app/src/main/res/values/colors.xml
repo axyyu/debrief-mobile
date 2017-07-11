@@ -11,4 +11,6 @@
     <color name="day">#8cffffff</color>
     <color name="tag_color">#0076FF</color>
     <color name="thread">#9f00c4d5</color>
+
+    <color name="transparent">#00ffffff</color>
 </resources>

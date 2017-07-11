@@ -3,8 +3,7 @@
               android:orientation="horizontal"
               android:gravity="fill_horizontal"
               android:padding="10dp"
-              android:layout_margin="10dp"
-              android:layout_marginTop="0dp"
+              android:layout_marginBottom="10dp"
               android:background="@color/tag_color"
               android:id="@+id/tag_background"
               android:layout_width="match_parent"
@@ -22,24 +21,6 @@
             android:orientation="vertical"
             android:id="@+id/headline_list">
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/tag"-->
-                <!--android:textSize="15sp"-->
-                <!--android:textColor="@color/text_color"/>-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/tag"-->
-                <!--android:textSize="15sp"-->
-                <!--android:textColor="@color/text_color"/>-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/tag"-->
-                <!--android:textSize="15sp"-->
-                <!--android:textColor="@color/text_color"/>-->
         </LinearLayout>
 
         <LinearLayout
@@ -56,7 +37,11 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:id="@+id/tag_value"
-                android:textColor="@color/text_color"/>
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/text_color"
+                android:drawableLeft="@drawable/ic_label_white_18dp"/>
+
         </LinearLayout>
 
     </LinearLayout>

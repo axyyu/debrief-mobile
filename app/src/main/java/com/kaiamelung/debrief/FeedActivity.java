@@ -62,95 +62,20 @@ public class FeedActivity extends AppCompatActivity implements /*GestureDetector
     private Date date = new Date();
     private Calendar cal = Calendar.getInstance();
 
-
-    private GestureDetector detector;
-
     DayCollectionPagerAdapter mDayCollectionPagerAdapter;
     ViewPager mViewPager;
 
-    private void fetchData(){
-        tags.clear();
-        adapter.notifyDataSetChanged();
-        final ArrayList<Tag> temptags = new ArrayList<Tag>();
-//        adapter.notifyDataSetChanged();
-        int a =0;
-        System.out.println("BEGIN");
-        while(true){
-            String name = sharedPref.getString("" + a, "none");
-            String color= sharedPref.getString("" + a + "c", "none");
-            if(name.equals("none") || color.equals("none")){
-                break;
-            }
-            else{
-                if(name.equals("tech")){
-                    name = "technology";
-                }
-                else if(name.equals("tv")){
-                    name = "entertainment";
-                }
-                temptags.add(new Tag(name, null, color));
-                System.out.println(name);
-            }
-            a++;
-        }
-
-        DatabaseReference myRef = database.getReference("debriefings/"+mDateFormat.format(date));
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("TAGS FOUND");
-
-                for (DataSnapshot test : dataSnapshot.getChildren()) {
-                    System.out.println(test);
-                }
-
-                for(Tag b : temptags) {
-                    ArrayList<Article> temp = new ArrayList<Article>();
-                    System.out.println(b.getTag());
-                    System.out.println(dataSnapshot.child(b.getTag()));
-                    System.out.println(dataSnapshot.child(b.getTag()).getValue());
-                    for (DataSnapshot snapshot : dataSnapshot.child(b.getTag()).getChildren()) {
-                        ThreadGroup art = snapshot.getValue(ThreadGroup.class);
-                        Article art2 = new Article(art.title, art.shortsum, art.longsum, art.url, b.getColor());
-                        temp.add(art2);
-                    }
-                    if(temp.size() != 0){
-                        b.setArticle(temp);
-
-                        System.out.println(temp);
-                        tags.add(b);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                System.out.println("ERROR");
-            }
-        });
-    }
     @Override
     public void onFragmentInteraction(Uri uri){
         //you can leave it empty
     }
-    public void chooseThreads(View v){
-        Intent intent = new Intent(this, ChooseTagActivity.class);
-        startActivityForResult(intent, 1);
-        //return v;
-    }
-    public void notif(View v){
-        Intent intent = new Intent(this, NotifActivity.class);
-        startActivityForResult(intent, 2);
-        //return v;
-    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == 1) {
             // Make sure the request was successful
             if (resultCode == Activity.RESULT_OK) {
-                //fetchData();
                 mDayCollectionPagerAdapter =
                         new DayCollectionPagerAdapter(
                                 getSupportFragmentManager());
@@ -160,79 +85,7 @@ public class FeedActivity extends AppCompatActivity implements /*GestureDetector
                 System.out.println("OK VERY GOOD AWESOME");
             }
         }
-        else if(requestCode ==2){
-            if (resultCode == Activity.RESULT_OK) {
-                //fetchData();
-                Boolean notifOn = sharedPref.getBoolean(getString(R.string.notif_on),false);
-                int hour = sharedPref.getInt(getString(R.string.notif_hour),0);
-                int min = sharedPref.getInt(getString(R.string.notif_minute),0);
-
-                    Calendar updateTime = Calendar.getInstance();
-                    updateTime.setTimeInMillis(System.currentTimeMillis());
-                    updateTime.set(Calendar.HOUR_OF_DAY, hour);
-                    updateTime.set(Calendar.MINUTE, min);
-                    updateTime.set(Calendar.SECOND, 0);
-                    updateTime.set(Calendar.MILLISECOND, 0);
-
-                    Intent downloader = new Intent(this, Notification.class);
-                    PendingIntent recurringDownload = PendingIntent.getBroadcast(this,
-                            0, downloader, PendingIntent.FLAG_CANCEL_CURRENT);
-                    AlarmManager alarms = (AlarmManager) getSystemService(
-                            Context.ALARM_SERVICE);
-                if(notifOn) {
-                    alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                            updateTime.getTimeInMillis(),
-                            AlarmManager.INTERVAL_DAY, recurringDownload);
-                }
-                else{
-                    alarms.cancel(recurringDownload);
-                }
-            }
-
-        }
     }
-
-   /* @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return detector.onTouchEvent(event);
-    }
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                           float velocityY) {
-        if( Math.abs(velocityX)> Math.abs(2*velocityY)){
-            if(velocityX > 0){
-                cal.add(Calendar.DAY_OF_YEAR,-1);
-            }
-            else if (velocityX < 0){
-                cal.add(Calendar.DAY_OF_YEAR,+1);
-            }
-            date = cal.getTime();
-            mDate.setText(mDateFormat.format(date));
-            fetchData();
-        }
-        System.out.println("X:"+velocityX);
-        System.out.println("Y:"+velocityY);
-        return true;
-    }
-    @Override
-    public void onLongPress(MotionEvent e) {
-    }
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-                            float distanceY) {
-        return false;
-    }
-    @Override
-    public void onShowPress(MotionEvent e) {
-    }
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return true;
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,42 +93,7 @@ public class FeedActivity extends AppCompatActivity implements /*GestureDetector
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_feed);
 
-        /*cal.setTime(date);
-        cal.add(Calendar.DAY_OF_YEAR,-1);
-        date = cal.getTime();
-
-        detector=new GestureDetector(getApplicationContext(), this);
-
-        mDate = (TextView) findViewById(R.id.date);
-        mDate.setText(mDateFormat.format(date));
-
-
-        // Lookup the recyclerview in activity layout
-        mTag = (RecyclerView) findViewById(R.id.tag_list_view);
-        tags = new ArrayList<Tag>();
-
-//        tags.add(new Tag("test",null, "#FFFFFF"));
-
-        // Create adapter passing in the sample user data
-        adapter = new TagAdapter(this, tags);
-
-        // Attach the adapter to the recyclerview to populate items
-        mTag.setAdapter(adapter);
-        // Set layout manager to position the items
-        mTag.setLayoutManager(new LinearLayoutManager(this));*/
-
-        /*Intent nIntent=new Intent(this,Notification.class);
-        AlarmManager manager=(AlarmManager)getSystemService(Activity.ALARM_SERVICE);
-        PendingIntent pendingIntent=PendingIntent.getService(this,
-                0,nIntent, 0);
-        Calendar cal=Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 15);
-        cal.set(Calendar.MINUTE,5);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),24*60*60*1000,pendingIntent);*/
         sharedPref = this.getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
-
 
         Boolean notifOn = sharedPref.getBoolean(getString(R.string.notif_on),false);
         int hour = sharedPref.getInt(getString(R.string.notif_hour),0);
@@ -301,9 +119,6 @@ public class FeedActivity extends AppCompatActivity implements /*GestureDetector
         else{
             alarms.cancel(recurringDownload);
         }
-
-
-
 
         int tagNumber = sharedPref.getInt(getString(R.string.saved_tag_num), 0);
         if(tagNumber!=2){

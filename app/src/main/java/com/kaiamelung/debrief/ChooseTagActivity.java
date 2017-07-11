@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,8 +37,14 @@ public class ChooseTagActivity extends AppCompatActivity {
     private ArrayList<Thread> unselectedThreads = new ArrayList<Thread>(Arrays.asList(threadList));
     private ArrayList<Thread> selectedThreads = new ArrayList<Thread>();
 
+    private ImageButton mSaveTags;
+
     @Override
     public void onBackPressed() {
+        saveTags();
+    }
+
+    public void saveTags(){
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.saved_threads), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(getString(R.string.saved_tag_num), 2);
@@ -124,6 +133,13 @@ public class ChooseTagActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_choose_tag);
+
+        mSaveTags = (ImageButton) findViewById(R.id.save_tags);
+        mSaveTags.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                saveTags();
+            }
+        });
 
         selectedThreads.clear();
 

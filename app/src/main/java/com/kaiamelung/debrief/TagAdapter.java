@@ -110,7 +110,7 @@ public class TagAdapter extends
                     head.setText(art.getHeadline());
                     head.setTextColor(Color.parseColor("#FFFFFF"));
                     head.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-                    head.setPadding(0,20,0,20);
+                    head.setPadding(5,10,0,10);
                     mHeadlines.addView(head);
                 }
             }
@@ -120,7 +120,7 @@ public class TagAdapter extends
                     head.setText(art.getHeadline());
                     head.setTextColor(Color.parseColor("#FFFFFF"));
                     head.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-                    head.setPadding(0,20,0,20);
+                    head.setPadding(5,10,0,10);
                     mHeadlines.addView(head);
                 }
             }

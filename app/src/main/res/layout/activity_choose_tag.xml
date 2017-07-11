@@ -5,10 +5,9 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
               android:orientation="vertical"
+    android:gravity="center_horizontal"
               android:background="@drawable/gradient"
     tools:context="com.kaiamelung.debrief.ChooseTagActivity">
 
@@ -26,44 +25,97 @@
             android:text="@string/threads"
             android:textColor="@color/text_color"/>
     </LinearLayout>
-    <ScrollView
-        android:id="@+id/SCROLLER_ID"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:scrollbars="vertical"
-        android:layout_weight="4"
-        android:fillViewport="true">
-    <com.kaiamelung.debrief.FlowLayout
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
 
-        android:padding="20dp"
-        android:id="@+id/selected"
-        android:orientation="horizontal"
-
-        >
-
-    </com.kaiamelung.debrief.FlowLayout>
-    </ScrollView>
-
-    <ScrollView
-        android:id="@+id/SCROLLER"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:scrollbars="vertical"
-        android:layout_weight="4"
-        android:fillViewport="true">
-    <com.kaiamelung.debrief.FlowLayout
-
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="20dp"
+        android:layout_weight="3"
+        android:gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Selected Threads"
+            android:textSize="20dp"
+            android:textColor="@color/text_color"
+            />
+
+        <ScrollView
+            android:id="@+id/SCROLLER_ID"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            android:layout_weight="3"
+            android:fillViewport="true">
+            <com.kaiamelung.debrief.FlowLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+
+                android:padding="20dp"
+                android:id="@+id/selected"
+                android:orientation="horizontal"
+                >
+
+            </com.kaiamelung.debrief.FlowLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
         android:background="@color/thread"
-        android:id="@+id/unselected"
-        android:orientation="horizontal"
-        >
+        android:gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
-    </com.kaiamelung.debrief.FlowLayout>
-    </ScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Threads"
+            android:paddingTop="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/text_color"
+            />
+
+        <ScrollView
+            android:id="@+id/SCROLLER"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            android:layout_weight="3"
+            android:fillViewport="true"
+            >
+
+            <com.kaiamelung.debrief.FlowLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:padding="20dp"
+                android:id="@+id/unselected"
+                android:orientation="horizontal"
+                >
+
+            </com.kaiamelung.debrief.FlowLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:src="@drawable/ic_save_white_48dp"
+        android:background="@color/gradient_start"
+        android:id="@+id/save_tags"
+        android:textColor="@color/text_color"
+        android:layout_marginBottom="10dp"
+        />
 
 </LinearLayout>

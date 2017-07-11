@@ -7,16 +7,23 @@
     tools:context="com.kaiamelung.debrief.ArticleFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
-        android:text="sports"
-        android:textStyle="bold"
-        android:id="@+id/article_name"
-        android:textColor="@color/text_color"/>
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="sports"
+            android:textStyle="bold"
+            android:id="@+id/article_name"
+            android:textColor="@color/text_color"/>
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,13 +45,13 @@
             />
     </ScrollView>
 
-    <Button
-        android:layout_width="150dp"
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textSize="20sp"
-        android:text="full article"
-        android:textAllCaps="false"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:src="@drawable/ic_open_in_browser_white_48dp"
         android:background="@color/gradient_start"
         android:id="@+id/article_link"
         android:textColor="@color/text_color"
