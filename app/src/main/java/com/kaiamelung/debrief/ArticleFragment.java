@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.net.URI;
@@ -34,7 +35,7 @@ public class ArticleFragment extends Fragment {
 
     private Uri uriUrl;
     private Intent launchBrowser;
-    private Button mLink;
+    private ImageButton mLink;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -88,7 +89,7 @@ public class ArticleFragment extends Fragment {
         uriUrl = Uri.parse(a.getLink());
         //v.setBackgroundColor(Color.parseColor(a.getColor()));
         ((View) getActivity().findViewById(R.id.activity_article)).setBackgroundColor(Color.parseColor(a.getColor()));
-        mLink = (Button) v.findViewById(R.id.article_link);
+        mLink = (ImageButton) v.findViewById(R.id.article_link);
         mLink.setBackgroundColor(Color.parseColor(a.getColor()));
         launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         mLink.setOnClickListener(new View.OnClickListener() {

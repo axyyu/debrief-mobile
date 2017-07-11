@@ -5,13 +5,11 @@
     tools:context="com.kaiamelung.debrief.TagFragment"
     android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <RelativeLayout
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -19,8 +17,12 @@
             android:textSize="30sp"
             android:text="sports"
             android:id="@+id/tag_name"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:textColor="@color/text_color"/>
-    </LinearLayout>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_weight="8"
         android:layout_width="match_parent"
@@ -28,7 +30,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/article_list_view">
