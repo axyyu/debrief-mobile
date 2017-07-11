@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +62,8 @@ public class DayFragment extends Fragment {
     private java.util.Calendar cal = java.util.Calendar.getInstance();
     private SharedPreferences sharedPref;
 
-
+    private Gson gson;
+    private boolean save_articles;
 
     private OnFragmentInteractionListener mListener;
 
@@ -81,12 +90,11 @@ public class DayFragment extends Fragment {
     }
 
     private void fetchData(){
+
         tags.clear();
         adapter.notifyDataSetChanged();
         final ArrayList<Tag> temptags = new ArrayList<Tag>();
-//        adapter.notifyDataSetChanged();
         int a =0;
-        System.out.println("BEGIN");
         while(true){
             String name = sharedPref.getString("" + a, "none");
             String color= sharedPref.getString("" + a + "c", "none");
@@ -95,50 +103,88 @@ public class DayFragment extends Fragment {
             }
             else{
                 temptags.add(new Tag(name, null, color));
-                System.out.println(name);
             }
             a++;
         }
 
-        DatabaseReference myRef = database.getReference("debriefings/"+mDateFormat.format(date));
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("TAGS FOUND");
-
-                for (DataSnapshot test : dataSnapshot.getChildren()) {
-                    System.out.println(test);
-                }
-
-                for(Tag b : temptags) {
-                    ArrayList<Article> temp = new ArrayList<Article>();
-                    String name = b.getTag();
-                    if(name.equals("tech")){
-                        name = "technology";
-                    }
-                    else if(name.equals("tv")){
-                        name = "entertainment";
-                    }
-                    for (DataSnapshot snapshot : dataSnapshot.child(name).getChildren()) {
-                        ThreadGroup art = snapshot.getValue(ThreadGroup.class);
-                        Article art2 = new Article(art.title, art.shortsum, art.longsum, art.url, b.getColor());
-                        temp.add(art2);
-                    }
-                    if(temp.size() != 0){
-                        b.setArticle(temp);
-
-                        System.out.println(temp);
-                        tags.add(b);
-                    }
-                }
-                adapter.notifyDataSetChanged();
+        for(final Tag b : temptags) {
+            String name = b.getTag();
+            if(name.equals("tech")){
+                name = "technology";
             }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                System.out.println("ERROR");
+            else if(name.equals("tv")){
+                name = "entertainment";
             }
-        });
+            final String tagname = name;
+
+            ArrayList<Article> temp = readFile(mDateFormat.format(date), tagname);
+            if(temp != null){
+                if(temp.size() != 0){
+                    b.setArticle(temp);
+                    tags.add(b);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+            else{
+                DatabaseReference myRef = database.getReference("debriefings/"+mDateFormat.format(date)+"/"+name);
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<Article> temp = new ArrayList<Article>();
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            ThreadGroup art = snapshot.getValue(ThreadGroup.class);
+                            Article art2 = new Article(art.title, art.shortsum, art.longsum, art.url, b.getColor());
+                            temp.add(art2);
+                        }
+                        if(temp.size() != 0){
+                            b.setArticle(temp);
+                            tags.add(b);
+                        }
+                        if(save_articles == true) {
+                            saveFile(mDateFormat.format(date), tagname, temp);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        System.out.println("ERROR");
+                    }
+                });
+            }
+        }
+    }
+
+    private void saveFile(String date, String tag, ArrayList<Article> articleList){
+        String filename = date+" "+tag;
+        String string = gson.toJson(articleList);
+
+        FileOutputStream outputStream;
+        try {
+            outputStream = getContext().openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ArrayList<Article> readFile(String date, String tag){
+        String filename = date+" "+tag;
+
+        File file = new File(getContext().getFilesDir(), filename);
+        int length = (int) file.length();
+
+        byte[] bytes = new byte[length];
+        try {
+            FileInputStream in = new FileInputStream(file);
+            in.read(bytes);
+            String contents = new String(bytes);
+            Type type = new TypeToken<ArrayList<Article>>() {}.getType();
+            return gson.fromJson(contents, type);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
@@ -150,62 +196,8 @@ public class DayFragment extends Fragment {
         }
         // Lookup the recyclerview in activity layout
         sharedPref = this.getActivity().getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
-
-       // tags = new ArrayList<Tag>();
-
-//        tags.add(new Tag("test",null, "#FFFFFF"));
-        //mTag = (RecyclerView) getView().findViewById(R.id.tag_recyc_view);
-
-        // Create adapter passing in the sample user data
-       // adapter = new TagAdapter(this.getActivity(), tags);
-
-        // Attach the adapter to the recyclerview to populate items
-       // mTag.setAdapter(adapter);
-        // Set layout manager to position the items
-      //  mTag.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-
-      //  sharedPref = this.getActivity().getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
-      //  fetchData();
-        /*
-        cal.setTime(date);
-        cal.add(Calendar.DAY_OF_YEAR,-1);
-        date = cal.getTime();
-
-        detector=new GestureDetector(getApplicationContext(), this);
-
-        mDate = (TextView) findViewById(R.id.date);
-        mDate.setText(mDateFormat.format(date));
-        mDayCollectionPagerAdapter =
-                new DayCollectionPagerAdapter(
-                        getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mDayCollectionPagerAdapter);
-        mViewPager.setCurrentItem(mDayCollectionPagerAdapter.getCount()-1);
-
-        // Lookup the recyclerview in activity layout
-        mTag = (RecyclerView) findViewById(R.id.tag_list_view);
-        tags = new ArrayList<Tag>();
-
-//        tags.add(new Tag("test",null, "#FFFFFF"));
-
-        // Create adapter passing in the sample user data
-        adapter = new TagAdapter(this, tags);
-
-        // Attach the adapter to the recyclerview to populate items
-        mTag.setAdapter(adapter);
-        // Set layout manager to position the items
-        mTag.setLayoutManager(new LinearLayoutManager(this));
-
-        sharedPref = this.getSharedPreferences(getString(R.string.saved_threads),Context.MODE_PRIVATE);
-        int tagNumber = sharedPref.getInt(getString(R.string.saved_tag_num), 0);
-        if(tagNumber==0){
-            //launch chooser
-            Intent intent = new Intent(this, ChooseTagActivity.class);
-            startActivityForResult(intent, 1);
-        }
-        else{
-            fetchData();
-        } */
+        save_articles = sharedPref.getBoolean(getString(R.string.save_articles), true);
+        gson = new Gson();
     }
 
     @Override
@@ -221,8 +213,8 @@ public class DayFragment extends Fragment {
         date = cal.getTime();
 
         View v = inflater.inflate(R.layout.fragment_day, container, false);
-        DateFormat mDateFormat = new SimpleDateFormat("M-d");
-        ((TextView)v.findViewById(R.id.date)).setText(mDateFormat.format(date));
+        DateFormat dateFormat = new SimpleDateFormat("MMMM d");
+        ((TextView)v.findViewById(R.id.date)).setText(dateFormat.format(date));
 
         mTag = (RecyclerView) v.findViewById(R.id.tag_recyc_view);
         tags = new ArrayList<Tag>();

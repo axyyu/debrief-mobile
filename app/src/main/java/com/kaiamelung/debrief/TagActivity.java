@@ -49,54 +49,7 @@ public class TagActivity extends AppCompatActivity implements TagFragment.OnFrag
         // Set layout manager to position the items
         mArticles.setLayoutManager(new LinearLayoutManager(this));
 
-//        adapter.notifyDataSetChanged();
     }
-
-   /* @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return detector.onTouchEvent(event);
-    }
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                           float velocityY) {
-        if( Math.abs(velocityX)> Math.abs(2*velocityY)){
-            if(velocityX > 0){
-                currentPosition-=1;
-                if(currentPosition<0){
-                    currentPosition = size-1;
-                }
-            }
-            else if (velocityX < 0){
-                currentPosition+=1;
-                if(currentPosition>=size){
-                    currentPosition = 0;
-                }
-            }
-            setupArticles();
-        }
-        System.out.println("X:"+velocityX);
-        System.out.println("Y:"+velocityY);
-        return true;
-    }
-    @Override
-    public void onLongPress(MotionEvent e) {
-    }
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-                            float distanceY) {
-        return false;
-    }
-    @Override
-    public void onShowPress(MotionEvent e) {
-    }
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return true;
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,29 +69,11 @@ public class TagActivity extends AppCompatActivity implements TagFragment.OnFrag
             tags[i]=intent.getStringExtra("T"+i);
         }
 
-        /*tag = (TextView) findViewById(R.id.tag);
-
-        detector=new GestureDetector(getApplicationContext(), this);
-
-        articles = new ArrayList<Article>();
-
-        mArticles = (RecyclerView) findViewById(R.id.article_list_view);
-
-        // Create adapter passing in the sample user data
-        adapter = new ArticleAdapter(this, articles);
-
-        // Attach the adapter to the recyclerview to populate items
-        mArticles.setAdapter(adapter);
-        // Set layout manager to position the items
-        mArticles.setLayoutManager(new LinearLayoutManager(this));*/
-
         mTagCollectionPagerAdapter =
                 new TagCollectionPagerAdapter(
                         getSupportFragmentManager(),size,bund,tags);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mTagCollectionPagerAdapter);
         mViewPager.setCurrentItem(currentPosition);
-
-        //setupArticles();
     }
 }

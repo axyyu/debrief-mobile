@@ -1,13 +1,16 @@
 package com.kaiamelung.debrief;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by andrew on 5/25/17.
  */
 
 public class Day {
     private String mDate;
-    private Tag[] mTag;
-    public Day(String d, Tag[] t){
+    private ArrayList<Tag> mTag;
+    public Day(String d, ArrayList<Tag> t){
         mDate = d;
         mTag = t;
     }
@@ -20,11 +23,11 @@ public class Day {
         mDate = date;
     }
 
-    public Tag[] getTag() {
+    public ArrayList<Tag> getTag() {
         return mTag;
     }
 
-    public void setTag(Tag[] t) {
+    public void setTag(ArrayList<Tag> t) {
         mTag = t;
     }
 }

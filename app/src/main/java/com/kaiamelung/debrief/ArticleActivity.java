@@ -56,52 +56,6 @@ public class ArticleActivity extends AppCompatActivity implements ArticleFragmen
     public void onFragmentInteraction(Uri uri){
         //you can leave it empty
     }
-    /*@Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return detector.onTouchEvent(event);
-    }
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                           float velocityY) {
-        if( Math.abs(velocityX)> Math.abs(2*velocityY)){
-            if(velocityX > 0){
-                currentPosition-=1;
-                if(currentPosition<0){
-                    currentPosition = size-1;
-                }
-            }
-            else if (velocityX < 0){
-                currentPosition+=1;
-                if(currentPosition>=size){
-                    currentPosition = 0;
-                }
-            }
-            setupArticle();
-        }
-        System.out.println("X:"+velocityX);
-        System.out.println("Y:"+velocityY);
-        return true;
-    }
-    @Override
-    public void onLongPress(MotionEvent e) {
-    }
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-                            float distanceY) {
-        return false;
-    }
-    @Override
-    public void onShowPress(MotionEvent e) {
-    }
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return true;
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,22 +64,9 @@ public class ArticleActivity extends AppCompatActivity implements ArticleFragmen
 
         intent = getIntent();
         Bundle bund= intent.getBundleExtra("A");
-        //mArticles = (ArrayList<Article>) bund.getSerializable("ARRAY");
-
-        //screen = findViewById(R.id.activity_article);
 
         size = intent.getIntExtra("S", 0);
         currentPosition = intent.getIntExtra("I",0);
-
-        //detector=new GestureDetector(getApplicationContext(), this);
-
-        //mTitle = (TextView) findViewById(R.id.article_name);
-
-        //mContent = (TextView) findViewById(R.id.article_content);
-        //mContent.setMovementMethod(new ScrollingMovementMethod());
-
-        //mLink = (Button) findViewById(R.id.article_link);
-        // size, article array
 
         mArticleCollectionPagerAdapter =
                 new ArticleCollectionPagerAdapter(
@@ -133,7 +74,5 @@ public class ArticleActivity extends AppCompatActivity implements ArticleFragmen
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mArticleCollectionPagerAdapter);
         mViewPager.setCurrentItem(currentPosition);
-
-        //setupArticle();
     }
 }
