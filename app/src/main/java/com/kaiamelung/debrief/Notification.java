@@ -7,6 +7,8 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -21,10 +23,11 @@ public class Notification extends BroadcastReceiver {
     @Override
     public void onReceive(Context c, Intent i)
     {
-
+        Bitmap icon = BitmapFactory.decodeResource(c.getResources(), R.drawable.debriefnotifblack);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(c)
-                        .setSmallIcon(R.drawable.debrief)
+                        .setSmallIcon(R.drawable.debriefnotif)
+                        .setLargeIcon(icon)
                         .setContentTitle("Debrief")
                         .setContentText("Your news is ready");
         Intent resultIntent = new Intent(c, FeedActivity.class);

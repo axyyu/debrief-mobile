@@ -98,23 +98,30 @@ public class FeedActivity extends AppCompatActivity implements /*GestureDetector
         Boolean notifOn = sharedPref.getBoolean(getString(R.string.notif_on),false);
         int hour = sharedPref.getInt(getString(R.string.notif_hour),0);
         int min = sharedPref.getInt(getString(R.string.notif_minute),0);
-
+        
         Calendar updateTime = Calendar.getInstance();
         updateTime.setTimeInMillis(System.currentTimeMillis());
-        updateTime.set(Calendar.HOUR_OF_DAY, hour);
-        updateTime.set(Calendar.MINUTE, min);
+        updateTime.set(Calendar.HOUR_OF_DAY, 10);
+        updateTime.set(Calendar.MINUTE, 1);
         updateTime.set(Calendar.SECOND, 0);
         updateTime.set(Calendar.MILLISECOND, 0);
-
+        long a = System.currentTimeMillis();
+        long b = updateTime.getTimeInMillis();
+        if(b<a){
+            updateTime.setTimeInMillis(b+86400000);
+        }
         Intent downloader = new Intent(this, Notification.class);
         PendingIntent recurringDownload = PendingIntent.getBroadcast(this,
                 0, downloader, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarms = (AlarmManager) getSystemService(
                 Context.ALARM_SERVICE);
         if(notifOn) {
-            alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                    updateTime.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, recurringDownload);
+            //alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+            //        updateTime.getTimeInMillis(),
+            //        AlarmManager.INTERVAL_DAY, recurringDownload);
+            alarms.setRepeating(AlarmManager.RTC_WAKEUP,
+                            updateTime.getTimeInMillis(),
+                    1000 * 60 * 1140, recurringDownload);
         }
         else{
             alarms.cancel(recurringDownload);
