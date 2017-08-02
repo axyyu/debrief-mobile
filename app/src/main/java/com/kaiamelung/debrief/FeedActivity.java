@@ -82,7 +82,17 @@ public class FeedActivity extends AppCompatActivity implements /*GestureDetector
                 mViewPager = (ViewPager) findViewById(R.id.pager);
                 mViewPager.setAdapter(mDayCollectionPagerAdapter);
                 mViewPager.setCurrentItem(mDayCollectionPagerAdapter.getCount()-1);
-                System.out.println("OK VERY GOOD AWESOME");
+            }
+        }
+        if (requestCode == 2) {
+            // Make sure the request was successful
+            if (resultCode == Activity.RESULT_OK) {
+                mDayCollectionPagerAdapter =
+                        new DayCollectionPagerAdapter(
+                                getSupportFragmentManager());
+                mViewPager = (ViewPager) findViewById(R.id.pager);
+                mViewPager.setAdapter(mDayCollectionPagerAdapter);
+                mViewPager.setCurrentItem(mDayCollectionPagerAdapter.getCount()-1);
             }
         }
     }

@@ -99,8 +99,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9:00 A.M."
-                android:textSize="20dp"
+                android:text="9:00 AM"
+                android:textSize="30dp"
                 android:textAllCaps="false"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
@@ -109,19 +109,19 @@
 
             </TextView>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/gradient_start"
-                android:text="Change Time"
-                android:textSize="20dp"
-                android:textAllCaps="false"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
-                android:textColor="@color/text_color"
-                android:id="@+id/change_time">
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/gradient_start"-->
+                <!--android:text="Change Time"-->
+                <!--android:textSize="20dp"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:paddingRight="20dp"-->
+                <!--android:paddingLeft="20dp"-->
+                <!--android:textColor="@color/text_color"-->
+                <!--android:id="@+id/change_time">-->
 
-            </Button>
+            <!--</Button>-->
 
         </LinearLayout>
 
