@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="textColorPrimary">#95989A</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#cfcfcf</color>
 
-    <color name="gradient_start">#00C4D5</color>
-    <color name="gradient_end">#D1D1D1</color>
+    <color name="colorAccent">#cfcfcf</color>
+    <color name="windowBackground">#ffffff</color>
+
+    <color name="selected">#56BAFC</color>
+    <color name="science">#48D296</color>
+    <color name="sports">#FF8484</color>
+    <color name="politics">#C47DEC</color>
+    <color name="entertainment">#5fa0d8</color>
+    <color name="money">#e570cf</color>
+    <color name="movies">#62db62</color>
+    <color name="music">#46d3d6</color>
+    <color name="technology">#efae58</color>
+    <color name="world">#ef8757</color>
+
     <color name="text_color">#ffffff</color>
-
-    <color name="day">#8cffffff</color>
-    <color name="tag_color">#0076FF</color>
-    <color name="thread">#9f00c4d5</color>
-
-    <color name="transparent">#00ffffff</color>
+    <color name="gradient_start">#aaaaaa</color>
+    <color name="gradient_end">#cccccc</color>
+    <color name="thread">#cccccc</color>
+    <color name="transparent">#cccccc</color>
+    <color name="tag_color">#cccccc</color>
 </resources>
