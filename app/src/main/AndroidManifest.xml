@@ -31,6 +31,10 @@
         <activity
             android:name=".Setting"
             android:label="@string/title_activity_setting"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Contact"
+            android:label="@string/title_activity_contact"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 

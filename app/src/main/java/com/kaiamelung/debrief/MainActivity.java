@@ -14,8 +14,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DateFormat mDateFormat = new SimpleDateFormat("MMM d - EEEE");
+    private DateFormat mDayFormat = new SimpleDateFormat("M-d");
+    private Date date = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(mDateFormat.format(date));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -61,6 +70,10 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, Setting.class));
+            return true;
+        }
+        else if (id == R.id.action_contact) {
+            startActivity(new Intent(this, Contact.class));
             return true;
         }
 

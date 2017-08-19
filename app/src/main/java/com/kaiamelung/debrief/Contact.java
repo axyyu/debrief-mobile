@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class Setting extends AppCompatActivity {
+public class Contact extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -18,12 +18,12 @@ public class Setting extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_contact);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Settings");
+        getSupportActionBar().setTitle("Contact Us");
 
-//        SHOW BACK BUTTON
+        //        SHOW BACK BUTTON
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
