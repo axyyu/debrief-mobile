@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Heading from './Modules/Heading';
 import Feed from './Modules/Feed';
 
+
+
 export default class App extends React.Component {
   render() {
     return (
