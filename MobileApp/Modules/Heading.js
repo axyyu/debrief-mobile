@@ -10,10 +10,13 @@ export default class Heading extends React.Component {
     constructor(props) {
         super(props);
         let moment = require('moment');
-        this.state = {date:moment().format('dddd, MMM Do'),
-        datestyle:{color:"#56BAFC"},
-        tag:"science",
-        tagstyle:{color:color.colorDict["science"]}
+        this.state = {
+            date:moment().format('MMM Do'),
+            datestyle:{color:"#56BAFC"},
+            tag:"science",
+            tagstyle:{color:color.colorDict["science"]},
+            article:"test",
+            articlestyle:{color:color.colorDict["science"]},
         };
     }
 
@@ -22,10 +25,10 @@ export default class Heading extends React.Component {
             return (
                 <View style={styles.headerContainer}>
                     <Text style={[styles.content, this.state.datestyle]}>{this.state.date}</Text>
-                    <Text style={styles.content}>></Text>
-                    <Text style={[styles.content, this.state.articlestyle]}>{this.state.datecolor}</Text>
-                    <Text style={styles.content}>></Text>
-                    <Text style={[styles.content, ]}>article</Text>
+                    <Text style={styles.content}> > </Text>
+                    <Text style={[styles.content, this.state.tagstyle]}>{this.state.tag}</Text>
+                    <Text style={styles.content}> > </Text>
+                    <Text style={[styles.content, this.state.articlestyle]}>article</Text>
                 </View>
             );
         }
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
         width:"100%",
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         borderBottomColor: 'gray',
         borderBottomWidth: 1,
     },
