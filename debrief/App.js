@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
 
 import Header from './components/header';
 import Day from './components/view/day';
@@ -23,16 +23,15 @@ export default class App extends React.Component {
         super(props);
         this.moment = moment();
         this.timeFormat = "dddd, MMMM D";
-        this.dateFormat = "M-D";
-
+        this.dateFormat = "M-D-Y";
+        
         this.time = moment().subtract(1, 'days').format(this.timeFormat)
         this.date = moment().subtract(1, 'days').format(this.dateFormat)
         this.page = <Day data={this.date} openDay={this.openDay.bind(this)}></Day>
-
         this.state={
             time:this.time,
             date:this.date,
-            page:this.page
+            page:this.page,
         }
     }
     componentDidMount(){
@@ -41,8 +40,6 @@ export default class App extends React.Component {
     openDay(keyValue){
         this.page = <Tag data={this.date} tag={keyValue} openTag={this.openTag.bind(this)}></Tag>
         this.setState({
-            time:this.time,
-            date:this.date,
             page:this.page,
             tag:keyValue
         })
@@ -51,10 +48,7 @@ export default class App extends React.Component {
     openTag(keyValue){
         this.page = <Article data={this.date} tag={this.state.tag} openTag={this.openTag.bind(this)} title={keyValue}></Article>
         this.setState({
-            time:this.time,
-            date:this.date,
             page:this.page,
-            tag:this.state.tag,
             title:keyValue
         })
     }
@@ -74,4 +68,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 50
     },
+    scroll:{
+
+    },
+    page:{
+        flex:1,
+        backgroundColor:"blue",
+        padding:10
+    }
 });
