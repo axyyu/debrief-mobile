@@ -1,11 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+var moment = require('moment');
 var s = require("./colors");
 
 export default class Header extends React.Component {
     constructor(props){
         super(props);
+
+        this.timeFormat = "dddd, MMMM D";
+        this.date = this.time = moment().subtract(props.offset, 'days').format(this.timeFormat);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.date = this.time = moment().subtract(nextProps.offset, 'days').format(this.timeFormat);
     }
     render() {
         tag = null;
@@ -14,7 +21,7 @@ export default class Header extends React.Component {
         }
         return (
         <View style={styles.header}>
-            <Text style={styles.text}>{this.props.day}</Text>
+            <Text style={styles.text}>{this.date}</Text>
             {tag}
         </View>
         );

@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Dimensions } from 'react-native';
+import Swiper from 'react-native-swiper';
 
 import Header from './components/header';
 import Day from './components/view/day';
+import DayBrowser from './components/dayBrowser';
+import ArticleStack from './components/articleStack';
 import Tag from './components/view/tag';
 import Article from './components/view/article';
 
-// import * as moment from 'moment';
-var moment = require('moment');
 import * as firebase from "firebase";
 var config = {
     apiKey: "AIzaSyClEcUda49RQvTGD4BtIkh-3G3_TXYO4_w",
@@ -17,25 +18,32 @@ var config = {
 firebase.initializeApp(config);
 
 console.disableYellowBox = true;
+console.ignoredYellowBox = ['Warning: Failed prop type'];
 
 export default class App extends React.Component {
     constructor(props){
         super(props);
-        this.moment = moment();
-        this.timeFormat = "dddd, MMMM D";
-        this.dateFormat = "M-D-Y";
+        console.disableYellowBox = true;
+        console.ignoredYellowBox = ['Warning: Failed prop type'];
+
+        //Initialize
+        this.offset = 61;
         
-        this.time = moment().subtract(1, 'days').format(this.timeFormat)
-        this.date = moment().subtract(1, 'days').format(this.dateFormat)
-        this.page = <Day data={this.date} openDay={this.openDay.bind(this)}></Day>
+        this.content = <DayBrowser offset={this.offset} updateDay={this.updateDay.bind(this)}></DayBrowser>
         this.state={
             time:this.time,
             date:this.date,
-            page:this.page,
+            content:this.content,
+            offset:this.offset
         }
     }
     componentDidMount(){
         
+    }
+    updateDay(keyValue){
+        this.setState({
+            offset:keyValue
+        });
     }
     openDay(keyValue){
         this.page = <Tag data={this.date} tag={keyValue} openTag={this.openTag.bind(this)}></Tag>
@@ -54,22 +62,23 @@ export default class App extends React.Component {
     }
     render() {
         return (
-        <View style={styles.container}>
-            <Header day={this.state.time} tag={this.state.tag}></Header>
-            {this.page}
-        </View>
+            <View style={styles.container}>
+                <Header offset={this.state.offset} tag={this.state.tag}></Header>
+                {this.state.content}
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    wrapper:{
+
+    },
     container: {
+        width: Dimensions.get('window').width,
         flex: 1,
         paddingHorizontal: 20,
         paddingVertical: 50
-    },
-    scroll:{
-
     },
     page:{
         flex:1,
@@ -77,3 +86,24 @@ const styles = StyleSheet.create({
         padding:10
     }
 });
+
+/*
+<View style={styles.container}>
+            <Header day={this.state.time} tag={this.state.tag}></Header>
+            {this.page}
+        </View>
+*/
+/*
+<ScrollView style={styles.scroll} horizontal>
+                <View style={styles.container}>
+                    <Header day={this.state.time} tag={this.state.tag}></Header>
+                    {this.page}
+                </View>
+            </ScrollView>
+            */
+/*
+<Swiper style={styles.wrapper} horizontal showsPagination={false}>
+                    {this.page}
+                    {this.page}
+                </Swiper>
+*/
