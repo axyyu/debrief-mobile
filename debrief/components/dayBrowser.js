@@ -37,7 +37,7 @@ export default class DayBrowser extends React.Component {
         this.forceUpdate();
     }
     openDay(keyValue){
-
+        this.openDay(keyValue);
     }
     update(index){
         this.offset -= index-1;
