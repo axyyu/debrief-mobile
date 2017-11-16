@@ -27,9 +27,10 @@ export default class App extends React.Component {
         console.ignoredYellowBox = ['Warning: Failed prop type'];
 
         //Initialize
+        this.origOffset = 61;
         this.offset = 61;
         
-        this.content = <DayBrowser offset={this.offset} updateDay={this.updateDay.bind(this)}></DayBrowser>
+        this.content = <DayBrowser offset={this.origOffset} current={this.offset} updateDay={this.updateDay.bind(this)} openDay={this.openDay.bind(this)}></DayBrowser>
         this.state={
             time:this.time,
             date:this.date,
@@ -37,8 +38,12 @@ export default class App extends React.Component {
             offset:this.offset
         }
     }
-    componentDidMount(){
-        
+    dayView(){
+        this.content = <DayBrowser offset={this.origOffset} current={this.offset} updateDay={this.updateDay.bind(this)} openDay={this.openDay.bind(this)}></DayBrowser>
+        this.setState({
+            content:this.content,
+            tag:null
+        })
     }
     updateDay(keyValue){
         this.setState({
@@ -46,19 +51,15 @@ export default class App extends React.Component {
         });
     }
     openDay(keyValue){
-        this.page = <Tag data={this.date} tag={keyValue} openTag={this.openTag.bind(this)}></Tag>
+        this.content = <ArticleStack tag={keyValue} offset={this.offset} dayView={this.dayView.bind(this)}></ArticleStack>;
         this.setState({
-            page:this.page,
+            content:this.content,
             tag:keyValue
         })
-        
+        // console.log(keyValue);
     }
     openTag(keyValue){
-        this.page = <Article data={this.date} tag={this.state.tag} openTag={this.openTag.bind(this)} title={keyValue}></Article>
-        this.setState({
-            page:this.page,
-            title:keyValue
-        })
+        
     }
     render() {
         return (

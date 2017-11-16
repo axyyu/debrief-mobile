@@ -3,14 +3,20 @@ import { StyleSheet, ScrollView, FlatList, View, Text } from 'react-native';
 
 import TagEntry from "../list/tagEntry";
 import * as firebase from "firebase";
+var moment = require('moment');
 
 export default class Day extends React.Component {
     constructor(props){
         super(props);
+
+        this.dateFormat = "M-D";
+        this.moment = moment();
+        this.date = moment().subtract(props.offset, 'days').format(this.dateFormat);
+
         this.state = {tagContent:[]};
     }
     componentDidMount(){
-        firebase.database().ref('/debriefings/'+"9-23"+"/"+this.props.tag).once('value').then( (snapshot) => {
+        firebase.database().ref('/debriefings/'+this.date+"/"+this.props.tag).once('value').then( (snapshot) => {
             var obj = snapshot.val();
             var output = [];
             for(k in obj){

@@ -2,20 +2,26 @@ import React from 'react';
 import { StyleSheet, ScrollView, FlatList, View, Text, Linking, TouchableOpacity } from 'react-native';
 
 import * as firebase from "firebase";
+var moment = require('moment');
 
 var s = require("../colors");
 
 export default class Article extends React.Component {
     constructor(props){
         super(props);
+
+        this.dateFormat = "M-D";
+        this.moment = moment();
+        this.date = moment().subtract(props.offset, 'days').format(this.dateFormat);
+
         this.state = {output:{}};
     }
     componentDidMount(){
-        firebase.database().ref('/debriefings/'+"9-23"+"/"+this.props.tag+"/"+this.props.title).once('value').then( (snapshot) => {
+        firebase.database().ref('/debriefings/'+this.date+"/"+this.props.tag+"/-"+this.props.article).once('value').then( (snapshot) => {
             var obj = snapshot.val();
             var output = {key:obj.title, longsum:obj.longsum,link:obj.url};
             this.setState({
-                output
+                output:output
             })
         });
     }
@@ -25,11 +31,11 @@ export default class Article extends React.Component {
     render() {
         return (
             <ScrollView style={styles.page}>
-              <Text style={styles.title}>{this.state.output.key}</Text>
-              <Text style={styles.article}>{this.state.output.longsum}</Text>
-              <TouchableOpacity onPress={this.openArticle.bind(this)} style={ [styles.button,s[this.props.tag+"Button"]] } >
-                <Text style={styles.buttonText}>Open Article</Text>
-              </TouchableOpacity>
+                <Text style={styles.title}>{this.state.output.key}</Text>
+                <Text style={styles.article}>{this.state.output.longsum}</Text>
+                <TouchableOpacity onPress={this.openArticle.bind(this)} style={ [styles.button,s[this.props.tag+"Button"]] } >
+                    <Text style={styles.buttonText}>Open Article</Text>
+                </TouchableOpacity>
             </ScrollView>
         );
     }
