@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, ScrollView, FlatList, View, Text } from 'react-native';
+import { StyleSheet, ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native';
 
 import TagEntry from "../list/tagEntry";
 import * as firebase from "firebase";
+
 var moment = require('moment');
+var s = require("../colors");
 
 export default class Day extends React.Component {
     constructor(props){
@@ -37,6 +39,9 @@ export default class Day extends React.Component {
                     data = {this.state.tagContent}
                     renderItem={({item}) => <TagEntry info={item} openTag={this.openTag.bind(this)}></TagEntry>}
                 />
+                <TouchableOpacity onPress={this.props.dayView.bind(this)} style={ [styles.button,s[this.props.tag+"Button"]] } >
+                    <Text style={styles.buttonText}>Back</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -46,5 +51,14 @@ const styles = StyleSheet.create({
     page: {
         flex: 1,
         justifyContent: 'center',
-    }
+    },
+    button:{
+        marginVertical: 10,
+        marginTop:20,
+        padding:10,
+      },
+      buttonText:{
+        fontSize: 20,
+        textAlign:'center'
+      }
 });

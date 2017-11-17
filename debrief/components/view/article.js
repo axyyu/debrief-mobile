@@ -14,10 +14,12 @@ export default class Article extends React.Component {
         this.moment = moment();
         this.date = moment().subtract(props.offset, 'days').format(this.dateFormat);
 
+        console.log(this.props);
+
         this.state = {output:{}};
     }
     componentDidMount(){
-        firebase.database().ref('/debriefings/'+this.date+"/"+this.props.tag+"/-"+this.props.article).once('value').then( (snapshot) => {
+        firebase.database().ref('/debriefings/'+this.date+"/"+this.props.tag+"/"+this.props.article).once('value').then( (snapshot) => {
             var obj = snapshot.val();
             var output = {key:obj.title, longsum:obj.longsum,link:obj.url};
             this.setState({
@@ -30,13 +32,18 @@ export default class Article extends React.Component {
     }
     render() {
         return (
-            <ScrollView style={styles.page}>
-                <Text style={styles.title}>{this.state.output.key}</Text>
-                <Text style={styles.article}>{this.state.output.longsum}</Text>
+            <View style={styles.page}>
+                <ScrollView style={styles.page}>
+                    <Text style={styles.title}>{this.state.output.key}</Text>
+                    <Text style={styles.article}>{this.state.output.longsum}</Text>
+                </ScrollView>
                 <TouchableOpacity onPress={this.openArticle.bind(this)} style={ [styles.button,s[this.props.tag+"Button"]] } >
                     <Text style={styles.buttonText}>Open Article</Text>
                 </TouchableOpacity>
-            </ScrollView>
+                <TouchableOpacity onPress={this.props.tagView.bind(this)} style={ [styles.button,s[this.props.tag+"Button"]] } >
+                    <Text style={styles.buttonText}>Back</Text>
+                </TouchableOpacity>
+            </View>
         );
     }
 }
@@ -44,6 +51,11 @@ export default class Article extends React.Component {
 const styles = StyleSheet.create({
     page: {
         flex: 1,
+        // justifyContent: 'center',
+    },
+    pagescroll: {
+        flex: 1,
+        marginBottom: 20,
         // justifyContent: 'center',
     },
     title:{
@@ -57,7 +69,6 @@ const styles = StyleSheet.create({
     },
     button:{
       marginVertical: 10,
-      marginTop:20,
       padding:10,
     },
     buttonText:{

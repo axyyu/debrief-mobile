@@ -45,13 +45,20 @@ export default class App extends React.Component {
             tag:null
         })
     }
+    tagView(){
+        this.content = <Tag tag={this.state.tag} dayView={this.dayView.bind(this)} offset={this.offset} openTag={this.openTag.bind(this)}></Tag>;
+        this.setState({
+            content:this.content
+        })
+    }
     updateDay(keyValue){
         this.setState({
             offset:keyValue
         });
     }
     openDay(keyValue){
-        this.content = <ArticleStack tag={keyValue} offset={this.offset} dayView={this.dayView.bind(this)}></ArticleStack>;
+        // this.content = <ArticleStack tag={keyValue} offset={this.offset} dayView={this.dayView.bind(this)}></ArticleStack>;
+        this.content = <Tag tag={keyValue} dayView={this.dayView.bind(this)} offset={this.offset} openTag={this.openTag.bind(this)}></Tag>;
         this.setState({
             content:this.content,
             tag:keyValue
@@ -59,7 +66,10 @@ export default class App extends React.Component {
         // console.log(keyValue);
     }
     openTag(keyValue){
-        
+        this.content = <Article offset={this.offset} tag={this.state.tag} article={keyValue} tagView={this.tagView.bind(this)}></Article>;
+        this.setState({
+            content:this.content
+        })
     }
     render() {
         return (
