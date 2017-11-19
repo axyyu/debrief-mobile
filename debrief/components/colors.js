@@ -82,5 +82,33 @@ module.exports = StyleSheet.create({
     },
     worldButton:{
         backgroundColor:"#ef8757AA",
+    },
+
+    scienceText:{
+        color: "#48D296AA",
+    },
+    sportsText:{
+        color:"#FF8484AA",
+    },
+    politicsText:{
+        color:"#C47DECAA",
+    },
+    entertainmentText:{
+        color:"#5fa0d8AA",
+    },
+    moneyText:{
+        color:"#e570cfAA",
+    },
+    moviesText:{
+        color:"#62db62AA",
+    },
+    musicText:{
+        color:"#46d3d6AA",
+    },
+    technologyText:{
+        color:"#efae58AA",
+    },
+    worldText:{
+        color:"#ef8757AA",
     }
 });

@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
 import TagEntry from "../list/tagEntry";
+import Header from '../header';
 import * as firebase from "firebase";
 
 var moment = require('moment');
@@ -10,36 +12,45 @@ var s = require("../colors");
 export default class Day extends React.Component {
     constructor(props){
         super(props);
+        const { params } = this.props.navigation.state;
 
         this.dateFormat = "M-D";
         this.moment = moment();
-        this.date = moment().subtract(props.offset, 'days').format(this.dateFormat);
+        this.date = moment().subtract(params.offset, 'days').format(this.dateFormat);
 
-        this.state = {tagContent:[]};
+        this.state = {
+            offset:params.offset,
+            tag:params.tag,
+            tagContent:[],
+        };
     }
     componentDidMount(){
-        firebase.database().ref('/debriefings/'+this.date+"/"+this.props.tag).once('value').then( (snapshot) => {
+        firebase.database().ref('/debriefings/'+this.date+"/"+this.state.tag).once('value').then( (snapshot) => {
             var obj = snapshot.val();
             var output = [];
             for(k in obj){
-                output.push( {key:obj[k].title, fbind:k, shortsum:obj[k].shortsum, tag:this.props.tag} );
+                output.push( {key:obj[k].title, fbind:k, shortsum:obj[k].shortsum, tag:this.state.tag} );
             }
             this.setState({
                 tagContent:output
             })
         });
     }
+    back(){
+        this.props.navigation.navigate('Home', {current:this.state.offset});
+    }
     openTag(keyValue){
-        this.props.openTag(keyValue);
+        this.props.navigation.navigate('Article', {offset:this.state.offset, tag:this.state.tag, article:keyValue});
     }
     render() {
         return (
-            <View style={styles.page}>
+            <View style={styles.wrapper}>
+                <Header offset={this.state.offset} tag={this.state.tag}></Header>
                 <FlatList
                     data = {this.state.tagContent}
                     renderItem={({item}) => <TagEntry info={item} openTag={this.openTag.bind(this)}></TagEntry>}
                 />
-                <TouchableOpacity onPress={this.props.dayView.bind(this)} style={ [styles.button,s[this.props.tag+"Button"]] } >
+                <TouchableOpacity onPress={this.back.bind(this)} style={ [styles.button,s[this.state.tag+"Button"]] } >
                     <Text style={styles.buttonText}>Back</Text>
                 </TouchableOpacity>
             </View>
@@ -48,9 +59,12 @@ export default class Day extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    page: {
+    wrapper: {
         flex: 1,
-        justifyContent: 'center',
+        paddingHorizontal: 20,
+        paddingTop: 50,
+        paddingBottom:20,
+        backgroundColor: "#FFFFFF"
     },
     button:{
         marginVertical: 10,

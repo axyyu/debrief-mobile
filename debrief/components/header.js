@@ -17,7 +17,7 @@ export default class Header extends React.Component {
     render() {
         tag = null;
         if(this.props.tag != null){
-            tag = <Text style={[styles.tag, s[this.props.tag]]}>{this.props.tag}</Text>
+            tag = <Text style={[styles.tag, s[this.props.tag+"Text"]]}>{this.props.tag}</Text>
         }
         return (
         <View style={styles.header}>

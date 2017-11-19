@@ -3,23 +3,28 @@ import { StyleSheet, ScrollView, FlatList, View, Text, Linking, TouchableOpacity
 
 import * as firebase from "firebase";
 var moment = require('moment');
+import Header from '../header';
 
 var s = require("../colors");
 
 export default class Article extends React.Component {
     constructor(props){
         super(props);
+        const { params } = this.props.navigation.state;
 
         this.dateFormat = "M-D";
         this.moment = moment();
-        this.date = moment().subtract(props.offset, 'days').format(this.dateFormat);
+        this.date = moment().subtract(params.offset, 'days').format(this.dateFormat);
 
-        console.log(this.props);
-
-        this.state = {output:{}};
+        this.state = {
+            article:params.article,
+            offset:params.offset,
+            tag:params.tag,
+            output:[],
+        };
     }
     componentDidMount(){
-        firebase.database().ref('/debriefings/'+this.date+"/"+this.props.tag+"/"+this.props.article).once('value').then( (snapshot) => {
+        firebase.database().ref('/debriefings/'+this.date+"/"+this.state.tag+"/"+this.state.article).once('value').then( (snapshot) => {
             var obj = snapshot.val();
             var output = {key:obj.title, longsum:obj.longsum,link:obj.url};
             this.setState({
@@ -27,35 +32,47 @@ export default class Article extends React.Component {
             })
         });
     }
+    back(){
+        this.props.navigation.navigate('Tag', { offset: this.state.offset, tag:this.state.tag });
+    }
     openArticle(){
-      Linking.openURL(this.state.output.link).catch(err => console.error('An error occurred', err));
+        Linking.openURL(this.state.output.link).catch(err => console.error('An error occurred', err));
     }
     render() {
         return (
-            <View style={styles.page}>
+            <View style={styles.wrapper}>
+                <Header offset={this.state.offset} tag={this.state.tag}></Header>
                 <ScrollView style={styles.page}>
                     <Text style={styles.title}>{this.state.output.key}</Text>
                     <Text style={styles.article}>{this.state.output.longsum}</Text>
                 </ScrollView>
-                <TouchableOpacity onPress={this.openArticle.bind(this)} style={ [styles.button,s[this.props.tag+"Button"]] } >
-                    <Text style={styles.buttonText}>Open Article</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.props.tagView.bind(this)} style={ [styles.button,s[this.props.tag+"Button"]] } >
-                    <Text style={styles.buttonText}>Back</Text>
-                </TouchableOpacity>
+                <View style={styles.buttons}>
+                    <TouchableOpacity onPress={this.back.bind(this)} style={ [styles.button,s[this.state.tag+"Button"]] } >
+                        <Text style={styles.buttonText}>Back</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this.openArticle.bind(this)} style={ [styles.button,s[this.state.tag+"Button"]] } >
+                        <Text style={styles.buttonText}>Link</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    wrapper:{
+        flex: 1,
+        paddingHorizontal: 20,
+        paddingTop: 50,
+        paddingBottom:20,
+        backgroundColor: "#FFFFFF"
+    },
     page: {
         flex: 1,
         // justifyContent: 'center',
     },
     pagescroll: {
         flex: 1,
-        marginBottom: 20,
         // justifyContent: 'center',
     },
     title:{
@@ -67,9 +84,15 @@ const styles = StyleSheet.create({
       flex:1,
       fontSize:15,
     },
+    buttons:{
+        marginTop: 20,
+        flexDirection: "row",
+    },
     button:{
-      marginVertical: 10,
-      padding:10,
+        flex:1,
+        padding:10,
+        marginHorizontal: 10,
+        marginVertical: 10,
     },
     buttonText:{
       fontSize: 20,
