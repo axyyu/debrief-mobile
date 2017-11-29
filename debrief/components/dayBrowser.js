@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, ScrollView, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { StackNavigator } from 'react-navigation';
 
@@ -15,8 +15,8 @@ export default class DayBrowser extends React.Component {
         super(props);
         const { params } = this.props.navigation.state;
 
-        this.offset = 61;
-        this.current = 61;
+        this.offset = 65;
+        this.current = 65;
         if( params && params.current ){
             this.current = params.current;
         }
@@ -51,6 +51,9 @@ export default class DayBrowser extends React.Component {
     openDay(keyValue){
         this.props.navigation.navigate('Tag', { offset: this.current, tag:keyValue });
     }
+    openSettings(){
+        this.props.navigation.navigate('Settings');
+    }
     update(index){
         this.current = (dayLimit-index) + this.offset;
 
@@ -74,8 +77,24 @@ const styles = StyleSheet.create({
     wrapper:{
         width: Dimensions.get('window').width,
         flex: 1,
-        paddingHorizontal: 20,
         paddingTop: 50,
+        paddingBottom:0,
         backgroundColor: "#FFFFFF"
     },
+    button:{
+        marginBottom: 10,
+        padding:10,
+        borderColor: "black",
+        borderWidth:2
+    },
+    buttonText:{
+        fontSize: 20,
+        textAlign:'center'
+    }
 });
+
+/*
+<TouchableOpacity onPress={this.openSettings.bind(this)} style={ [styles.button] } >
+                    <Text style={styles.buttonText}>Settings</Text>
+                </TouchableOpacity>
+                */

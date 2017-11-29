@@ -21,6 +21,7 @@ console.ignoredYellowBox = ['Warning: Failed prop type'];
 
 const DebriefApp = StackNavigator({
     Home: { screen: DayBrowser },
+    Settings: { screen: Settings },
     Tag: { screen:Tag },
     Article: { screen:Article }
 },

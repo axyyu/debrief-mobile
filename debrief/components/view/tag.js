@@ -50,9 +50,6 @@ export default class Day extends React.Component {
                     data = {this.state.tagContent}
                     renderItem={({item}) => <TagEntry info={item} openTag={this.openTag.bind(this)}></TagEntry>}
                 />
-                <TouchableOpacity onPress={this.back.bind(this)} style={ [styles.button,s[this.state.tag+"Button"]] } >
-                    <Text style={styles.buttonText}>Back</Text>
-                </TouchableOpacity>
             </View>
         );
     }
@@ -61,13 +58,13 @@ export default class Day extends React.Component {
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        paddingHorizontal: 20,
         paddingTop: 50,
         paddingBottom:20,
         backgroundColor: "#FFFFFF"
     },
     button:{
         marginVertical: 10,
+        marginHorizontal:20,
         marginTop:20,
         padding:10,
       },
@@ -76,3 +73,9 @@ const styles = StyleSheet.create({
         textAlign:'center'
       }
 });
+
+/*
+<TouchableOpacity onPress={this.back.bind(this)} style={ [styles.button,s[this.state.tag+"Button"]] } >
+                    <Text style={styles.buttonText}>Back</Text>
+                </TouchableOpacity>
+                */

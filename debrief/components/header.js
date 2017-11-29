@@ -8,16 +8,26 @@ export default class Header extends React.Component {
     constructor(props){
         super(props);
 
-        this.timeFormat = "dddd, MMMM D";
-        this.date = this.time = moment().subtract(props.offset, 'days').format(this.timeFormat);
+        if(props.offset != null){
+            this.timeFormat = "dddd, MMMM D";
+            this.date = this.time = moment().subtract(props.offset, 'days').format(this.timeFormat);
+        }
+        else{
+            this.date = "Settings";
+        }
     }
     componentWillReceiveProps(nextProps) {
-        this.date = this.time = moment().subtract(nextProps.offset, 'days').format(this.timeFormat);
+        if(nextProps.offset != null){
+            this.date = this.time = moment().subtract(nextProps.offset, 'days').format(this.timeFormat);
+        }
+        else{
+            this.date = "Settings";
+        }
     }
     render() {
         tag = null;
         if(this.props.tag != null){
-            tag = <Text style={[styles.tag, s[this.props.tag+"Text"]]}>{this.props.tag}</Text>
+            tag = <Text style={[styles.tag, s[this.props.tag+"Text"]]}>{this.props.tag.toUpperCase()}</Text>
         }
         return (
         <View style={styles.header}>
@@ -38,9 +48,11 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     tag:{
+        marginTop:5,
         minHeight:0,
         textAlign:"center",
-        fontSize: 20
+        fontSize: 14,
+        fontWeight:"bold"
     },
     title:{
         minHeight:0,

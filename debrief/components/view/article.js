@@ -46,14 +46,6 @@ export default class Article extends React.Component {
                     <Text style={styles.title}>{this.state.output.key}</Text>
                     <Text style={styles.article}>{this.state.output.longsum}</Text>
                 </ScrollView>
-                <View style={styles.buttons}>
-                    <TouchableOpacity onPress={this.back.bind(this)} style={ [styles.button,s[this.state.tag+"Button"]] } >
-                        <Text style={styles.buttonText}>Back</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this.openArticle.bind(this)} style={ [styles.button,s[this.state.tag+"Button"]] } >
-                        <Text style={styles.buttonText}>Link</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
         );
     }
@@ -78,11 +70,13 @@ const styles = StyleSheet.create({
     title:{
       flex:1,
       fontSize:20,
-      marginBottom:10
+      fontWeight:"bold"
+    //   marginBottom:10
     },
     article:{
       flex:1,
       fontSize:15,
+      marginVertical:10,
     },
     buttons:{
         marginTop: 20,
@@ -99,3 +93,14 @@ const styles = StyleSheet.create({
       textAlign:'center'
     }
 });
+
+/*
+<View style={styles.buttons}>
+                    <TouchableOpacity onPress={this.back.bind(this)} style={ [styles.button,s[this.state.tag+"Button"]] } >
+                        <Text style={styles.buttonText}>Back</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this.openArticle.bind(this)} style={ [styles.button,s[this.state.tag+"Button"]] } >
+                        <Text style={styles.buttonText}>Link</Text>
+                    </TouchableOpacity>
+                </View>
+                */
