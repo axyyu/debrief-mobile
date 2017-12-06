@@ -10,8 +10,8 @@ export default class Day extends React.Component {
     constructor(props){
         super(props);
 
-        // this.dateFormat = "Y-M-D";
-        this.dateFormat = "M-D";
+        this.dateFormat = "Y-M-D";
+        // this.dateFormat = "M-D";
         this.moment = moment();
         this.date = moment().subtract(props.offset, 'days').format(this.dateFormat);
 

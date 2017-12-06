@@ -12,7 +12,7 @@ export default class Article extends React.Component {
         super(props);
         const { params } = this.props.navigation.state;
 
-        this.dateFormat = "M-D";
+        this.dateFormat = "Y-M-D";
         this.moment = moment();
         this.date = moment().subtract(params.offset, 'days').format(this.dateFormat);
 

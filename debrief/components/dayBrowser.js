@@ -15,8 +15,8 @@ export default class DayBrowser extends React.Component {
         super(props);
         const { params } = this.props.navigation.state;
 
-        this.offset = 65;
-        this.current = 65;
+        this.offset = 1;
+        this.current = 1;
         if( params && params.current ){
             this.current = params.current;
         }
