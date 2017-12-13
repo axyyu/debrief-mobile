@@ -6,6 +6,7 @@ import DayEntry from "../list/dayEntry";
 import * as firebase from "firebase";
 var moment = require('moment');
 
+let dayLimit = 3;
 export default class Day extends React.Component {
     constructor(props){
         super(props);
@@ -21,14 +22,22 @@ export default class Day extends React.Component {
         firebase.database().ref('/debriefings/'+this.date).once('value').then( (snapshot) => {
             var obj = snapshot.val();
             var output = [];
+            
             for(k in obj){
                 var n = {
                     key:k,
                     headlines: []
                 };
                 if(k.trim() !== "timestamp"){
+                    
+                    var count = 0;
                     for(k2 in obj[k]){
                         n["headlines"].push( {key:obj[k][k2].title} );
+
+                        count++;
+                        if(count > dayLimit){
+                            break;
+                        }
                     }
                     output.push(n);
                 }
