@@ -1,6 +1,16 @@
 {
   "expo": {
+    "name": "Debrief",
+    "icon": "./debrief.png",
+    "version": "1.0.0",
+    "slug": "debrief",
     "sdkVersion": "21.0.0",
-    "privacy": "unlisted"
+    "privacy": "unlisted",
+    "ios": {
+      "bundleIdentifier": "com.aurora.debrief"
+    },
+    "android": {
+      "package": "com.aurora.debrief"
+    }
   }
 }
